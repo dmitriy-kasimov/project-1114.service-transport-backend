@@ -2,6 +2,12 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "transport", "transport\transport.csproj", "{16488E68-0F5C-4544-8066-083C16D90B7F}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "core", "core", "{B2F15D22-3C6D-4816-8040-468B6108862F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "infrastructure", "infrastructure", "{A5CD101A-8102-4238-9B33-E056AE9506B6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "transport.domain.core", "transport.domain.core\transport.domain.core.csproj", "{119269D1-5864-4170-A235-43256CB14F84}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +18,12 @@ Global
 		{16488E68-0F5C-4544-8066-083C16D90B7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{16488E68-0F5C-4544-8066-083C16D90B7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{16488E68-0F5C-4544-8066-083C16D90B7F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{119269D1-5864-4170-A235-43256CB14F84}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{119269D1-5864-4170-A235-43256CB14F84}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{119269D1-5864-4170-A235-43256CB14F84}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{119269D1-5864-4170-A235-43256CB14F84}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{119269D1-5864-4170-A235-43256CB14F84} = {B2F15D22-3C6D-4816-8040-468B6108862F}
 	EndGlobalSection
 EndGlobal
