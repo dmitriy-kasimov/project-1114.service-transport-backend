@@ -1,4 +1,4 @@
-namespace transport.domain.core.subsection.Mechanical.Platform.Electric.Engine;
+namespace transport.domain.core.subsection.IMechanical.Platform.Electric.Engine;
 
 public interface IElectricEngine : IEngine
 {

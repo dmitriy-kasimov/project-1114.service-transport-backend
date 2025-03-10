@@ -1,4 +1,4 @@
-namespace transport.domain.core.subsection.Mechanical.Platform;
+namespace transport.domain.core.subsection.IMechanical.Platform;
 
 public interface IPowerSupply
 {

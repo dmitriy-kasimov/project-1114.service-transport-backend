@@ -11,6 +11,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Folder Include="group\Ground\" />
       <Folder Include="subsection\" />
     </ItemGroup>
 
