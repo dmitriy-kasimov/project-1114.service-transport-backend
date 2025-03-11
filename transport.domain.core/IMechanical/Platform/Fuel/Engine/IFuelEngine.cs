@@ -1,4 +1,4 @@
-namespace transport.domain.core.subsection.IMechanical.Platform.Fuel.Engine;
+namespace transport.domain.core.IMechanical.Platform.Fuel.Engine;
 
 public interface IFuelEngine : IEngine
 {
