@@ -1,4 +1,4 @@
-namespace transport.domain.core.IMechanical.Platform;
+namespace transport.domain.core.IMechanical.IPlatform;
 
 public interface IEngine
 {
