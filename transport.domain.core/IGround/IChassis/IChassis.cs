@@ -1,4 +1,4 @@
-namespace transport.domain.core.IMechanical.IChassis;
+namespace transport.domain.core.IGround.IChassis;
 
 public interface IChassis
 {

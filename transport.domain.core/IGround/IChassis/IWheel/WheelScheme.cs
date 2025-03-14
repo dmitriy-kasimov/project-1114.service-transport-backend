@@ -1,4 +1,4 @@
-namespace transport.domain.core.IMechanical.IChassis.IWheel;
+namespace transport.domain.core.IGround.IChassis.IWheel;
 
 public enum WheelScheme
 {
