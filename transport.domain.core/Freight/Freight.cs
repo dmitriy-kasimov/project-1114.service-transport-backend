@@ -6,16 +6,14 @@ using transport.domain.core.IMechanical.IPlatform;
 
 namespace transport.domain.core.Freight;
 
-public class Freight : IMechanical.IMechanical, IGround.IGround, IFreight.IFreight
+public class Freight : Transport, IMechanical.IMechanical, IGround.IGround, IFreight.IFreight
 {
     public IAxis Axis { get; }
     public IPlatform Platform { get; }
     public IChassis Chassis { get; }
-
-    public Freight(IAxis axis, IPlatform platform, IChassis chassis)
+    
+    public Freight(ICore core, IntPtr nativePointer, uint id) : base(core, nativePointer, id)
     {
-        Axis = axis;
-        Platform = platform;
-        Chassis = chassis;
+        
     }
 }

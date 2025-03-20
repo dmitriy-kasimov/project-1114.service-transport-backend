@@ -7,11 +7,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="AltV.Net" Version="16.4.8" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Freight\dto\" />
+      <ProjectReference Include="..\transport.services.interfaces\transport.services.interfaces.csproj" />
+      <ProjectReference Include="..\transport\transport.csproj" />
     </ItemGroup>
 
 </Project>
