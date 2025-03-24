@@ -8,7 +8,7 @@ namespace Transport;
 
 public class TransportController : Resource
 {
-    private ITransportService _transportService;
+    private IFrightService _freightService;
     
     public override IEntityFactory<IVehicle> GetVehicleFactory()
     {
@@ -17,7 +17,7 @@ public class TransportController : Resource
     
     public override void OnStart()
     {
-        _transportService = new TransportService();
+        _freightService = new FreightService();
     }
 
     public override void OnStop()
