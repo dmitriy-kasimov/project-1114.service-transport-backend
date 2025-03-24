@@ -14,6 +14,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "transport.domain.interfaces
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "transport.infrastructure.business", "transport.infrastructure.business\transport.infrastructure.business.csproj", "{1DBCF9B6-35D9-4301-AC8D-E329B2974AAF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "transport.infrastructure.data", "transport.infrastructure.data\transport.infrastructure.data.csproj", "{C59F1A70-0A4A-4443-B87D-4C1A3310A6A4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -40,11 +42,16 @@ Global
 		{1DBCF9B6-35D9-4301-AC8D-E329B2974AAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1DBCF9B6-35D9-4301-AC8D-E329B2974AAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1DBCF9B6-35D9-4301-AC8D-E329B2974AAF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C59F1A70-0A4A-4443-B87D-4C1A3310A6A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C59F1A70-0A4A-4443-B87D-4C1A3310A6A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C59F1A70-0A4A-4443-B87D-4C1A3310A6A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C59F1A70-0A4A-4443-B87D-4C1A3310A6A4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{119269D1-5864-4170-A235-43256CB14F84} = {B2F15D22-3C6D-4816-8040-468B6108862F}
 		{BA2104CC-4A11-4DC0-8A5A-D37A610BDF91} = {B2F15D22-3C6D-4816-8040-468B6108862F}
 		{2FFAE658-5986-4EAD-8E9B-6B281184FCE7} = {B2F15D22-3C6D-4816-8040-468B6108862F}
 		{1DBCF9B6-35D9-4301-AC8D-E329B2974AAF} = {A5CD101A-8102-4238-9B33-E056AE9506B6}
+		{C59F1A70-0A4A-4443-B87D-4C1A3310A6A4} = {A5CD101A-8102-4238-9B33-E056AE9506B6}
 	EndGlobalSection
 EndGlobal

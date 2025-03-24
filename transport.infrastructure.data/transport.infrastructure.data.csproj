@@ -7,8 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\transport.infrastructure.data\transport.infrastructure.data.csproj" />
-      <ProjectReference Include="..\transport.services.interfaces\transport.services.interfaces.csproj" />
+      <ProjectReference Include="..\transport.domain.interfaces\transport.domain.interfaces.csproj" />
     </ItemGroup>
 
 </Project>

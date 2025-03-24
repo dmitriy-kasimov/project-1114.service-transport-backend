@@ -1,20 +1,23 @@
 ﻿using AltV.Net;
-using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
-using AltV.Net.Enums;
 using transport.domain.core;
+using transport.infrastructure.business;
+using transport.services.interfaces;
 
 namespace Transport;
 
-public class Transport : Resource
+public class TransportController : Resource
 {
+    private ITransportService _transportService;
+    
     public override IEntityFactory<IVehicle> GetVehicleFactory()
     {
         return new TransportFactory();
     }
+    
     public override void OnStart()
     {
-        
+        _transportService = new TransportService();
     }
 
     public override void OnStop()
