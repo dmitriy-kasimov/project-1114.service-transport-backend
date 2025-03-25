@@ -10,4 +10,8 @@
       <PackageReference Include="AltV.Net" Version="16.4.8" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Freight\dto\" />
+    </ItemGroup>
+
 </Project>
