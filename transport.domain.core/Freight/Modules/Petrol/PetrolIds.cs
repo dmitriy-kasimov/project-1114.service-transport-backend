@@ -1,7 +1,7 @@
 namespace transport.domain.core.Freight.Modules.Axis;
 
-public enum AxisModels
+public enum PetrolIds
 {
-    Hauler1,
-    Hauler2,
+    StH1,
+    StH2,
 }
