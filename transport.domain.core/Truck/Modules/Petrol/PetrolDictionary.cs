@@ -1,4 +1,4 @@
-namespace transport.domain.core.Freight.Modules.Petrol;
+namespace transport.domain.core.Truck.Modules.Petrol;
 
 public static class PetrolDictionary
 {
@@ -6,12 +6,12 @@ public static class PetrolDictionary
     {
         { PetrolIds.StH1, new Petrol("St. Axis H-1",
             "This is a stock petrol for Hauler-1 with capacity equals 150 l.",
-            [FreightIds.Hauler, FreightIds.Hauler2],
+            [TrucksIds.Hauler, TrucksIds.Hauler2],
             150.0f) 
         },
         { PetrolIds.StH2, new Petrol("St. Axis H-2",
             "This is a stock axis for Hauler-2 with capacity equals 180 l.",
-            [FreightIds.Hauler2],
+            [TrucksIds.Hauler2],
             180.0f) 
         }
     };

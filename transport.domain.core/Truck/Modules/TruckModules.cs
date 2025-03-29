@@ -1,12 +1,12 @@
 
-using transport.domain.core.Freight.Modules.Axis;
-using transport.domain.core.Freight.Modules.Engine;
-using transport.domain.core.Freight.Modules.Petrol;
-using transport.domain.core.Freight.Modules.Battery;
+using transport.domain.core.Truck.Modules.Axis;
+using transport.domain.core.Truck.Modules.Engine;
+using transport.domain.core.Truck.Modules.Petrol;
+using transport.domain.core.Truck.Modules.Battery;
 
-namespace transport.domain.core.Freight.Modules;
+namespace transport.domain.core.Truck.Modules;
 
-public class FreightModules
+public class TruckModules
 {
     public AxisIds[] CompatibilityAxis;
     public Axis.Axis Axis { get; }
@@ -20,7 +20,7 @@ public class FreightModules
     public BatteryIds[] CompatibilityBatteries;
     public Battery.Battery Battery { get; }
 
-    public FreightModules(
+    public TruckModules(
         AxisIds[] compatibilityAxis, Axis.Axis axis, 
         EngineIds[] compatibilityEngines, Engine.Engine engine, 
         PetrolIds[] compatibilityPetrol, Petrol.Petrol petrol, 

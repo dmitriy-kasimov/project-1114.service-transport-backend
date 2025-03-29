@@ -1,18 +1,18 @@
-using transport.domain.core.Freight.Modules;
-using transport.domain.core.Freight.Modules.Axis;
-using transport.domain.core.Freight.Modules.Battery;
-using transport.domain.core.Freight.Modules.Engine;
-using transport.domain.core.Freight.Modules.Petrol;
+using transport.domain.core.Truck.Modules;
+using transport.domain.core.Truck.Modules.Axis;
+using transport.domain.core.Truck.Modules.Battery;
+using transport.domain.core.Truck.Modules.Engine;
+using transport.domain.core.Truck.Modules.Petrol;
 
-namespace transport.domain.core.Freight;
+namespace transport.domain.core.Truck;
 
-public static class FrightModulesDictionary
+public static class TruckModulesDictionary
 {
-    public static readonly Dictionary<FreightIds, FreightModules> GetById = new Dictionary<FreightIds, FreightModules>()
+    public static readonly Dictionary<TrucksIds, TruckModules> GetById = new Dictionary<TrucksIds, TruckModules>()
     {
         {
-            FreightIds.Hauler,
-            new FreightModules(
+            TrucksIds.Hauler,
+            new TruckModules(
                 [AxisIds.StH1], AxisDictionary.GetAxisById[AxisIds.StH1],
                 [EngineIds.StH1], EngineDictionary.GetPetrolById[EngineIds.StH1],
                 [PetrolIds.StH1], PetrolDictionary.GetPetrolById[PetrolIds.StH1],
@@ -20,8 +20,8 @@ public static class FrightModulesDictionary
             )
         },
         {
-            FreightIds.Hauler2,
-            new FreightModules(
+            TrucksIds.Hauler2,
+            new TruckModules(
                 [AxisIds.StH1, AxisIds.StH2], AxisDictionary.GetAxisById[AxisIds.StH1],
                 [EngineIds.StH1, EngineIds.StH2], EngineDictionary.GetPetrolById[EngineIds.StH1],
                 [PetrolIds.StH1, PetrolIds.StH2], PetrolDictionary.GetPetrolById[PetrolIds.StH1],

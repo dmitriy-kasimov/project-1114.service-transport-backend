@@ -1,19 +1,19 @@
-namespace transport.domain.core.Freight.Modules.Axis;
+namespace transport.domain.core.Truck.Modules.Axis;
 
 public class Axis : IModule
 {
     public string Name { get; }
     public string Description { get; }
-    public FreightIds[] CompatibilityFreights { get;  }
+    public TrucksIds[] CompatibilityTrucks { get;  }
     
     public AxisType Type { get; }
     public float Capacity { get; }
 
-    public Axis(string name, string description, FreightIds[] compatibilityFreights, AxisType type, float capacity)
+    public Axis(string name, string description, TrucksIds[] compatibilityFreights, AxisType type, float capacity)
     {
         Name = name;
         Description = description;
-        CompatibilityFreights = compatibilityFreights;
+        CompatibilityTrucks = compatibilityFreights;
         Type = type;
         Capacity = capacity;
     }

@@ -1,4 +1,4 @@
-namespace transport.domain.core.Freight.Modules.Engine;
+namespace transport.domain.core.Truck.Modules.Engine;
 
 public enum TypeFuel
 {
