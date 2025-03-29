@@ -4,11 +4,11 @@ public class Engine : IModule
 {
     public string Name { get; }
     public string Description { get; }
-    public FreightModels[] CompatibilityFreights { get;  }
+    public FreightIds[] CompatibilityFreights { get;  }
     
     public TypeFuel[] FuelTypes { get; }
 
-    public Engine(string name, string description, FreightModels[] compatibilityFreights, TypeFuel[] fuelTypes)
+    public Engine(string name, string description, FreightIds[] compatibilityFreights, TypeFuel[] fuelTypes)
     {
         Name = name;
         Description = description;

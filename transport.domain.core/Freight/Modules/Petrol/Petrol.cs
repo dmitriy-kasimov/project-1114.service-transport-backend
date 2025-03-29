@@ -4,11 +4,11 @@ public class Petrol : IModule
 {
     public string Name { get; }
     public string Description { get; }
-    public FreightModels[] CompatibilityFreights { get;  }
+    public FreightIds[] CompatibilityFreights { get;  }
     
     public float Capacity { get; }
 
-    public Petrol(string name, string description, FreightModels[] compatibilityFreights, float capacity)
+    public Petrol(string name, string description, FreightIds[] compatibilityFreights, float capacity)
     {
         Name = name;
         Description = description;

@@ -4,12 +4,12 @@ public class Axis : IModule
 {
     public string Name { get; }
     public string Description { get; }
-    public FreightModels[] CompatibilityFreights { get;  }
+    public FreightIds[] CompatibilityFreights { get;  }
     
     public AxisType Type { get; }
     public float Capacity { get; }
 
-    public Axis(string name, string description, FreightModels[] compatibilityFreights, AxisType type, float capacity)
+    public Axis(string name, string description, FreightIds[] compatibilityFreights, AxisType type, float capacity)
     {
         Name = name;
         Description = description;

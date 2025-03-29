@@ -4,11 +4,11 @@ public class Battery : IModule
 {
     public string Name { get; }
     public string Description { get; }
-    public FreightModels[] CompatibilityFreights { get;  }
+    public FreightIds[] CompatibilityFreights { get;  }
     
     public float Capacity { get; }
 
-    public Battery(string name, string description, FreightModels[] compatibilityFreights, float capacity)
+    public Battery(string name, string description, FreightIds[] compatibilityFreights, float capacity)
     {
         Name = name;
         Description = description;

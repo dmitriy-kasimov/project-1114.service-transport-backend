@@ -1,6 +1,6 @@
 namespace transport.domain.core.Freight;
 
-public enum FreightModels
+public enum FreightIds
 {
     Hauler,
     Hauler2
