@@ -7,7 +7,7 @@ namespace transport.domain.core.Freight;
 
 public static class FrightsDictionary
 {
-    public static Dictionary<FreightIds, Freight> GetFreightById = new Dictionary<FreightIds, Freight>()
+    public static readonly Dictionary<FreightIds, Freight> GetFreightById = new Dictionary<FreightIds, Freight>()
     {
         {
             FreightIds.Hauler,
