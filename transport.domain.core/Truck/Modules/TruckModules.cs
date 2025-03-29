@@ -8,23 +8,23 @@ namespace transport.domain.core.Truck.Modules;
 
 public class TruckModules
 {
-    public AxisIds[] CompatibilityAxis;
+    public AxisModels[] CompatibilityAxis;
     public Axis.Axis Axis { get; }
     
-    public EngineIds[] CompatibilityEngines;
+    public EngineModels[] CompatibilityEngines;
     public Engine.Engine Engine { get; }
     
-    public PetrolIds[] CompatibilityPetrol;
+    public PetrolModels[] CompatibilityPetrol;
     public Petrol.Petrol Petrol { get; } 
     
-    public BatteryIds[] CompatibilityBatteries;
+    public BatteryModels[] CompatibilityBatteries;
     public Battery.Battery Battery { get; }
 
     public TruckModules(
-        AxisIds[] compatibilityAxis, Axis.Axis axis, 
-        EngineIds[] compatibilityEngines, Engine.Engine engine, 
-        PetrolIds[] compatibilityPetrol, Petrol.Petrol petrol, 
-        BatteryIds[] compatibilityBatteries, Battery.Battery battery)
+        AxisModels[] compatibilityAxis, Axis.Axis axis, 
+        EngineModels[] compatibilityEngines, Engine.Engine engine, 
+        PetrolModels[] compatibilityPetrol, Petrol.Petrol petrol, 
+        BatteryModels[] compatibilityBatteries, Battery.Battery battery)
     {
         CompatibilityAxis = compatibilityAxis;
         Axis = axis;

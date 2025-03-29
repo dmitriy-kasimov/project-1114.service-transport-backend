@@ -14,7 +14,7 @@ public class TruckService : ITruckService
         TruckRepository = new TruckRepository();
     }
 
-    public void Create(TrucksIds truckId, Position position, Rotation rotation)
+    public void Create(TruckModels truckId, Position position, Rotation rotation)
     {
         var Z = TruckRepository.Create(truckId, position, rotation);
     }

@@ -6,7 +6,7 @@ namespace transport.infrastructure.data;
 
 public class TruckRepository : ITruckRepository
 {
-    public Truck Create(TrucksIds truckId, Position position, Rotation rotation)
+    public Truck Create(TruckModels truckId, Position position, Rotation rotation)
     {
         return new Truck(truckId, position, rotation);
     }

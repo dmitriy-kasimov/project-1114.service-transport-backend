@@ -1,6 +1,6 @@
 namespace transport.domain.core.Truck.Modules.Petrol;
 
-public enum PetrolIds
+public enum PetrolModels
 {
     StH1,
     StH2,

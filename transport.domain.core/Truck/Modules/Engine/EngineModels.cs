@@ -1,6 +1,6 @@
 namespace transport.domain.core.Truck.Modules.Engine;
 
-public enum EngineIds
+public enum EngineModels
 {
     StH1,
     StH2,

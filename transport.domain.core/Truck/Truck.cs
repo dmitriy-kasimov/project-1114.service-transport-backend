@@ -10,10 +10,10 @@ public class Truck
     public TruckModules Modules { get; }
     public IVehicle Vehicle { get; }
 
-    public Truck(TrucksIds truckId, Position position, Rotation rotation)
+    public Truck(TruckModels truckModel, Position position, Rotation rotation)
     {
-        Modules = TruckModulesDictionary.GetById[truckId];
-        Vehicle = Alt.CreateVehicle(FreightsDictionary.GetAltModelByFrightId[truckId], position, rotation);
+        Modules = TruckModulesDictionary.GetByModel[truckModel];
+        Vehicle = Alt.CreateVehicle(TrucksDictionary.GetAltModelByTruckModel[truckModel], position, rotation);
     }
 
     ~Truck()

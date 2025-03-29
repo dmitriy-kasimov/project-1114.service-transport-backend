@@ -5,5 +5,5 @@ namespace transport.domain.interfaces;
 
 public interface ITruckRepository
 {
-    public Truck Create(TrucksIds truckId, Position position, Rotation rotation);
+    public Truck Create(TruckModels truckId, Position position, Rotation rotation);
 }

@@ -1,6 +1,6 @@
 namespace transport.domain.core.Truck.Modules.Axis;
 
-public enum AxisIds
+public enum AxisModels
 {
     StH1,
     StH2,

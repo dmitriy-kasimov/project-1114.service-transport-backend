@@ -1,6 +1,6 @@
 namespace transport.domain.core.Truck.Modules.Battery;
 
-public enum BatteryIds
+public enum BatteryModels
 {
     StH1,
     StH2,
