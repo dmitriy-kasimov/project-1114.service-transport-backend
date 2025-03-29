@@ -1,4 +1,4 @@
-namespace transport.domain.core.Freight.Modules.Axis;
+namespace transport.domain.core.Freight.Modules.Petrol;
 
 public enum PetrolIds
 {

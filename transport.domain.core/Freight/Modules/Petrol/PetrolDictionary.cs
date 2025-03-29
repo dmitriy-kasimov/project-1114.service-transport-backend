@@ -1,6 +1,4 @@
-using transport.domain.core.Freight;
-using transport.domain.core.Freight.Modules.Axis;
-using transport.domain.core.Freight.Modules.Petrol;
+namespace transport.domain.core.Freight.Modules.Petrol;
 
 public static class PetrolDictionary
 {

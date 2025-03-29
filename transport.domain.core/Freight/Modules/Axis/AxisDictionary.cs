@@ -1,5 +1,4 @@
-using transport.domain.core.Freight;
-using transport.domain.core.Freight.Modules.Axis;
+namespace transport.domain.core.Freight.Modules.Axis;
 
 public static class AxisDictionary
 {
