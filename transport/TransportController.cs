@@ -30,6 +30,6 @@ public class TransportController : Resource, IScript
     [ClientEvent("c:s:toggleEngine")]
     public void ToggleEngineHandler(Player player, IVehicle vehicle)
     {
-        _truckService?.
+        _truckService?.ToggleEngine(vehicle);
     }
 }

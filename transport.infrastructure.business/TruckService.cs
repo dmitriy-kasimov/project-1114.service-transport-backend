@@ -32,6 +32,7 @@ public class TruckService : ITruckService
     public void ToggleLights(IVehicle vehicle)
     {
         /* some logic with lights */
+        /* https://docs.fivem.net/natives/?_0x34E710FF01247C5A */
     }
     
     public void ToggleDoors(IVehicle vehicle)
