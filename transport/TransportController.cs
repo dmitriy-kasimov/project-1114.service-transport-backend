@@ -1,6 +1,7 @@
 ﻿using AltV.Net;
 using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
+using AltV.Net.Enums;
 using transport.domain.core.Truck;
 using transport.infrastructure.business;
 
@@ -31,5 +32,17 @@ public class TransportController : Resource, IScript
     public void ToggleEngineHandler(Player player, IVehicle vehicle)
     {
         _truckService?.ToggleEngine(vehicle);
+    }
+    
+    [ClientEvent("c:s:setLights")]
+    public void SetLightsHandler(Player player, IVehicle vehicle, byte mode)
+    {
+        _truckService?.SetLights(vehicle, mode);
+    }
+    
+    [ClientEvent("c:s:setDoor")]
+    public void SetDoorHandler(Player player, IVehicle vehicle, VehicleDoor door, VehicleDoorState doorState)
+    {
+        _truckService?.SetDoor(vehicle, door, doorState);
     }
 }
