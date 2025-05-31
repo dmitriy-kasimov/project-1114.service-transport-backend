@@ -26,11 +26,12 @@ public class TruckService : ITruckService
         _trucks.Clear();
     }
 
-    public void Create(TruckModels truckId, Position position, Rotation rotation)
+    public Truck Create(TruckModels truckId, Position position, Rotation rotation)
     {
         var truck = TruckRepository.Create(truckId, position, rotation);
         var id = truck.Vehicle;
         _trucks.Add(id, truck);
+        return truck;
     }
 
     public void ToggleEngine(IVehicle vehicle)
@@ -41,11 +42,11 @@ public class TruckService : ITruckService
     public void SetLights(IVehicle vehicle, byte mode)
     {
         /* https://docs.fivem.net/natives/?_0x34E710FF01247C5A */
-        _trucks[vehicle].Vehicle.LightState = mode;
+        // _trucks[vehicle].Vehicle.LightState = mode;
     }
     
     public void SetDoor(IVehicle vehicle, VehicleDoor door, VehicleDoorState doorState)
     {
-        _trucks[vehicle].Vehicle.SetDoorStateExt(door, doorState);
+       
     }
 }

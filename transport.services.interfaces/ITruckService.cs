@@ -7,7 +7,7 @@ namespace transport.services.interfaces;
 
 public interface ITruckService
 {
-    public void Create(TruckModels truckId, Position position, Rotation rotation);
+    public Truck Create(TruckModels truckId, Position position, Rotation rotation);
     public void ToggleEngine(IVehicle vehicle);
     public void SetLights(IVehicle vehicle, byte mode);
     public void SetDoor(IVehicle vehicle, VehicleDoor door, VehicleDoorState doorState);
