@@ -2,7 +2,6 @@
 using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
 using transport.domain.core.Truck;
-using transport.infrastructure.business;
 
 namespace Transport;
 
