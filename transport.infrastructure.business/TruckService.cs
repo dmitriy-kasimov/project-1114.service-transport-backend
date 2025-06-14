@@ -19,11 +19,11 @@ public class TruckService : ITruckService
 
     ~TruckService()
     {
-        foreach (var truck in _trucks)
-        {
-            truck.Value.Vehicle.Destroy();
-        }
-        _trucks.Clear();
+        // foreach (var truck in _trucks)
+        // {
+        //     truck.Value.Vehicle.Destroy();
+        // }
+        // _trucks.Clear();
     }
 
     public Truck Create(TruckModels truckId, Position position, Rotation rotation)

@@ -7,13 +7,22 @@ namespace Transport;
 
 public class Test : IScript
 {
+    
+    [ScriptEvent(ScriptEventType.PlayerEnterVehicle)]
+    public void OnPlayerEnterVehicle(IVehicle vehicle, IPlayer player, byte seat)
+    {
+        Console.WriteLine("Enter!");
+        player.Emit("s:c:vehicleInit");
+    }
+    
     [Command("hauler")]
     public void SpawnHauler(Player player)
     {
-        Console.WriteLine("hauler-command was called!!!");
+        Console.WriteLine("HAULER was spawned!");
         var position = player.Position;
         var rotation = player.Rotation;
         var vehicle = Alt.CreateVehicle(TrucksDictionary.GetAltModelByTruckModel[TruckModels.Hauler], position, rotation);
-        player.SetIntoVehicle(vehicle, 0);
+        vehicle.ManualEngineControl = true;
+        vehicle.EngineOn = false;
     }
 }

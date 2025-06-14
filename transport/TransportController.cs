@@ -1,7 +1,6 @@
 ﻿using AltV.Net;
 using AltV.Net.Elements.Entities;
 using AltV.Net.Enums;
-using AltV.Net.Resources.Chat.Api;
 using transport.domain.core.Truck;
 using transport.infrastructure.business;
 
@@ -35,19 +34,24 @@ public class TransportController : IScript
         player.SetIntoVehicle(truck?.Vehicle, 0);
     }
     
-    [ClientEvent("c:s:toggleEngine")]
-    public void ToggleEngineHandler(Player player, IVehicle vehicle)
+    [ClientEvent("c:s:toggleEngineState")]
+    public void ToggleEngineHandler(Player player)
     {
+        Console.WriteLine("Trying to toggle...");
         if (player.IsInVehicle)
         {
-            var passengers = vehicle.Passengers;
-            foreach (var passenger in passengers)
-            {
-                if (passenger.Player.Equals(player) && passenger.Seat == 0)
-                {
-                    _truckService?.ToggleEngine(vehicle);
-                }
-            }
+            Console.WriteLine("Player is defined");
+            var vehicle = player.Vehicle;
+            vehicle.EngineOn = !vehicle.EngineOn;
+            //_truckService?.ToggleEngine(vehicle);
+            //var passengers = vehicle.Passengers;
+            // foreach (var passenger in passengers)
+            // {
+            //     if (passenger.Player.Equals(player) && passenger.Seat == 0)
+            //     {
+            //         _truckService?.ToggleEngine(vehicle);
+            //     }
+            // }
         }
     }
     
@@ -61,16 +65,5 @@ public class TransportController : IScript
     public void SetDoorHandler(Player player, IVehicle vehicle, VehicleDoor door, VehicleDoorState doorState)
     {
         _truckService?.SetDoor(vehicle, door, doorState);
-    }
-    
-    [Command("hauler")]
-    public void SpawnHauler(Player player)
-    {
-        Console.WriteLine("hauler command was called!");
-        // CreateTruck(player, "0");
-        var position = player.Position;
-        var rotation = player.Rotation;
-        var truck = _truckService?.Create(TruckModels.Hauler, position, rotation);
-        //player.Emit("s:c:testHandler", truck?.Vehicle);
     }
 }
