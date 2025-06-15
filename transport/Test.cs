@@ -10,9 +10,10 @@ public class Test : IScript
 {
 
     [ScriptEvent(ScriptEventType.PlayerEnterVehicle)]
-    public void OnPlayerEnterVehicle(IVehicle vehicle, IPlayer player, byte seat)
+    public void OnPlayerEnterVehicle(Transport vehicle, IPlayer player, byte seat)
     {
         Console.WriteLine("Enter!");
+        Console.WriteLine(vehicle.LoggedIn);
         player.Emit("s:c:vehicleInit");
     }
 
@@ -24,8 +25,10 @@ public class Test : IScript
         var rotation = player.Rotation;
         var vehicle = Alt.CreateVehicle(TrucksDictionary.GetAltModelByTruckModel[TruckModels.Hauler], position,
             rotation);
+        
         vehicle.ManualEngineControl = true;
         vehicle.EngineOn = false;
+        
     }
 
     [Command("control")]

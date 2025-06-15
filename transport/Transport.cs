@@ -1,16 +1,36 @@
 ﻿using AltV.Net;
+using AltV.Net.Elements.Entities;
+using AltV.Net.Enums;
+
 namespace Transport;
 
-public class Transport : Resource
+public class Transport : Vehicle, IVehicle
 {
-    private TransportController? _controller;
-    public override void OnStart()
+    public bool LoggedIn { get; set; }
+  
+    public Transport(ICore core, IntPtr nativePointer, uint id) : base(core, nativePointer, id)
     {
-        _controller = new TransportController();
+        LoggedIn = false;
+        Init();
     }
 
-    public override void OnStop()
+    private void Init()
     {
-            
+        if (Model == (uint)VehicleModel.Hauler)
+        {
+            Console.WriteLine("HAULER!!!");
+        }
+        else
+        {
+            Console.WriteLine("NOT HAULER :(");
+        }
+    }
+}
+
+public class TransportFactory : IEntityFactory<Vehicle>
+{
+    public Vehicle Create(ICore core, IntPtr playerPointer, uint id)
+    {
+        return new Transport(core, playerPointer, id);
     }
 }
