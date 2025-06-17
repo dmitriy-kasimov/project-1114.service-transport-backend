@@ -1,8 +1,7 @@
 ﻿using AltV.Net;
-using AltV.Net.CApi.ClientEvents;
 using AltV.Net.Elements.Entities;
+using AltV.Net.Enums;
 using AltV.Net.Resources.Chat.Api;
-using transport.domain.core.Truck;
 
 namespace Transport;
 
@@ -21,12 +20,10 @@ public class Test : IScript
         Console.WriteLine("HAULER was spawned!");
         var position = player.Position;
         var rotation = player.Rotation;
-        var vehicle = Alt.CreateVehicle(TrucksDictionary.GetAltModelByTruckModel[TruckModels.Hauler], position,
-            rotation);
+        var vehicle = Alt.CreateVehicle(VehicleModel.Hauler, position, rotation);
         
         vehicle.ManualEngineControl = true;
         vehicle.EngineOn = false;
-        
     }
 
     [Command("control")]

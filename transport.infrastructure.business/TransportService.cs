@@ -1,9 +1,5 @@
-using AltV.Net;
 using AltV.Net.Data;
-using AltV.Net.Elements.Entities;
 using AltV.Net.Enums;
-using transport.domain.core;
-using transport.domain.core.Truck;
 using transport.infrastructure.data;
 using transport.services.interfaces;
 
