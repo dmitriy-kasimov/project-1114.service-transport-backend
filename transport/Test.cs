@@ -12,8 +12,6 @@ public class Test : IScript
     [ScriptEvent(ScriptEventType.PlayerEnterVehicle)]
     public void OnPlayerEnterVehicle(Transport vehicle, IPlayer player, byte seat)
     {
-        Console.WriteLine("Enter!");
-        Console.WriteLine(vehicle.LoggedIn);
         player.Emit("s:c:vehicleInit");
     }
 

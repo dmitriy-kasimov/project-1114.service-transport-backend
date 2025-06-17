@@ -4,13 +4,10 @@ using AltV.Net.Enums;
 
 namespace Transport;
 
-public class Transport : Vehicle, IVehicle
+public class Transport : Vehicle
 {
-    public bool LoggedIn { get; set; }
-  
     public Transport(ICore core, IntPtr nativePointer, uint id) : base(core, nativePointer, id)
     {
-        LoggedIn = false;
         Init();
     }
 
