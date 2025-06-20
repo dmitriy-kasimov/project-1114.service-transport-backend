@@ -9,7 +9,7 @@ public class Test : IScript
 {
 
     [ScriptEvent(ScriptEventType.PlayerEnterVehicle)]
-    public void OnPlayerEnterVehicle(transport.domain.core.Transport vehicle, IPlayer player, byte seat)
+    public void OnPlayerEnterVehicle(Transport vehicle, IPlayer player, byte seat)
     {
         player.Emit("s:c:vehicleInit");
     }

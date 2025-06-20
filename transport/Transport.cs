@@ -2,7 +2,7 @@
 using AltV.Net.Elements.Entities;
 using AltV.Net.Enums;
 
-namespace transport.domain.core;
+namespace Transport;
 
 public class Transport : Vehicle
 {
