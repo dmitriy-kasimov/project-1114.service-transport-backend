@@ -1,4 +1,5 @@
 using transport.domain.core.Mechanical.components;
+using transport.domain.core.Mechanical.components.Petrol;
 
 namespace transport.domain.core.Mechanical.dto;
 
