@@ -1,11 +1,10 @@
-﻿using AltV.Net.Elements.Entities;
-using transport.domain.core.Mechanical.components;
+﻿using transport.domain.core.Controlled.dto;
+using transport.domain.core.Mechanical.dto;
+using transport.domain.core.Transport.dto;
 
 namespace transport.domain.core.Mechanical;
 
-public abstract class Mechanical(FuelEngine fuelEngine, Petrol petrol, Battery battery, IVehicle vehicle, float mileage = 0, Player? owner = null) : Controlled(vehicle, mileage, owner)
+public abstract class Mechanical(MechanicalParams mechanicalParams,  ControlledParams controlledParams, TransportParams transportParams) : Controlled.Controlled(controlledParams, transportParams)
 {
-   private FuelEngine _fuelEngine = fuelEngine;
-   private Petrol _petrol = petrol;
-   private Battery _battery = battery;
+   private MechanicalParams _mechanicalParams = mechanicalParams;
 }
