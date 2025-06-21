@@ -1,4 +1,4 @@
-using transport.domain.core.Overland.components;
+using transport.domain.core.Overland.modules;
 
 namespace transport.domain.core.Overland.dto;
 

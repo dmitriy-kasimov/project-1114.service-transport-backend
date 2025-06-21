@@ -1,4 +1,4 @@
-namespace transport.domain.core.Mechanical.components.Battery.dto;
+namespace transport.domain.core.Mechanical.modules.Battery.dto;
 
 public abstract class BatteryParams(float maxCharge, float currentCharge = 0.0f)
 {

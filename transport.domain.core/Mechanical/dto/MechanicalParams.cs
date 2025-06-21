@@ -1,7 +1,6 @@
-using transport.domain.core.Mechanical.components;
-using transport.domain.core.Mechanical.components.Battery;
-using transport.domain.core.Mechanical.components.Engine;
-using transport.domain.core.Mechanical.components.Petrol;
+using transport.domain.core.Mechanical.modules.Battery;
+using transport.domain.core.Mechanical.modules.Engine;
+using transport.domain.core.Mechanical.modules.Petrol;
 
 namespace transport.domain.core.Mechanical.dto;
 

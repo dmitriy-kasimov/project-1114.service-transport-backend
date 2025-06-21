@@ -1,4 +1,4 @@
-namespace transport.domain.core.Mechanical.components.Engine.dto;
+namespace transport.domain.core.Mechanical.modules.Engine.dto;
 
 public abstract class EngineParams(float bsfc)
 {
