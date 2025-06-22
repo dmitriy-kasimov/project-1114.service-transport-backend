@@ -4,7 +4,7 @@ using transport.domain.core.Transport.dto;
 
 namespace transport.domain.core.Mechanical;
 
-public abstract class Mechanical(MechanicalParams mechanicalParams,  ControlledParams controlledParams, TransportParams transportParams) : Controlled.Controlled(controlledParams, transportParams)
+public abstract class Mechanical<T>(MechanicalParams<T> mechanicalParams,  ControlledParams controlledParams, TransportParams transportParams) : Controlled.Controlled(controlledParams, transportParams)
 {
-   private MechanicalParams _mechanicalParams = mechanicalParams;
+   private MechanicalParams<T> _mechanicalParams = mechanicalParams;
 }

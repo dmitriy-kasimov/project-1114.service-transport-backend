@@ -2,7 +2,7 @@
 
 namespace transport.domain.core.Mechanical.modules.Petrol;
 
-public class Petrol(PetrolParams petrolParams)
+public class Petrol<T>(PetrolParams<T> petrolParams)
 {
-    private PetrolParams _petrolParams = petrolParams;
+    private PetrolParams<T> _petrolParams = petrolParams;
 }
