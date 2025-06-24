@@ -4,7 +4,7 @@ using transport.domain.core.Mechanical.modules.Petrol;
 
 namespace transport.domain.core.Mechanical.dto;
 
-public abstract class MechanicalParams<T>(Engine<T> engine, Petrol<T> petrol, Battery battery)
+public class MechanicalParams<T>(Engine<T> engine, Petrol<T> petrol, Battery battery)
 {
     private Engine<T> _engine = engine;
     private Petrol<T> _petrol = petrol;

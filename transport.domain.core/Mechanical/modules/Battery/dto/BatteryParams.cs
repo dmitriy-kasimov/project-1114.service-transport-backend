@@ -1,6 +1,6 @@
 namespace transport.domain.core.Mechanical.modules.Battery.dto;
 
-public abstract class BatteryParams(string id, string name, float maxCharge, float currentCharge = 0.0f) : IEntity
+public class BatteryParams(string id, string name, float maxCharge, float currentCharge = 0.0f) : IEntity
 {
     public string Id => id;
     public string Name => name;

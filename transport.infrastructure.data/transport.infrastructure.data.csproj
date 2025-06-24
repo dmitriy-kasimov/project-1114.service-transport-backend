@@ -10,4 +10,8 @@
       <ProjectReference Include="..\transport.domain.interfaces\transport.domain.interfaces.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="AltV.Net" Version="16.4.16" />
+    </ItemGroup>
+
 </Project>

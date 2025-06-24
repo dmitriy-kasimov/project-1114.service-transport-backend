@@ -1,6 +1,6 @@
 namespace transport.domain.core.Mechanical.modules.Engine.dto;
 
-public abstract class EngineParams<T>(string id, string name, float bsfc, T[] acceptedTypesFuel) : IEntity
+public class EngineParams<T>(string id, string name, float bsfc, T[] acceptedTypesFuel) : IEntity
 {
     public string Id => id;
     public string Name => name;
