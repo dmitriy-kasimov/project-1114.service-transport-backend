@@ -1,7 +1,10 @@
 namespace transport.domain.core.Mechanical.modules.Engine.dto;
 
-public abstract class EngineParams<T>(float bsfc, T[] acceptedTypesFuel)
+public abstract class EngineParams<T>(string id, string name, float bsfc, T[] acceptedTypesFuel) : IEntity
 {
+    public string Id => id;
+    public string Name => name;
+    
     // Brake-Specific Fuel Consumption (BSFC): How much fuel is used per unit of power (g/kWh).
     private float _bsfc = bsfc;
 
