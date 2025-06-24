@@ -1,5 +1,6 @@
 using AltV.Net;
 using AltV.Net.Data;
+using AltV.Net.Elements.Entities;
 using transport.domain.core.Controlled.dto;
 using transport.domain.core.Mechanical.dto;
 using transport.domain.core.Mechanical.modules.Battery;
@@ -21,7 +22,7 @@ namespace transport.infrastructure.data.WagonRepository;
 
 public class WagonRepository : IWagonRepository<FuelType, AxisVariant>
 {
-    public Wagon<FuelType, AxisVariant> Create(Models model)
+    public Wagon<FuelType, AxisVariant> Create(Player player, Models model)
     {
         var wagonParams = new WagonParams(null);
         var truckParams = new TruckParams(100.0f, 100.0f);
@@ -45,8 +46,8 @@ public class WagonRepository : IWagonRepository<FuelType, AxisVariant>
 
         var controlledParams = new ControlledParams();
 
-        var vehicle = Alt.CreateVehicle((uint)model, new Position(), new Rotation());
-        var transportParams = new TransportParams(vehicle);
+        var vehicle = Alt.CreateVehicle((uint)model, new Position(player.Position.X, player.Position.Y, player.Position.Z+1), new Rotation(player.Rotation.Roll, player.Rotation.Pitch, player.Rotation.Yaw));
+        var transportParams = new TransportParams(vehicle, player);
         return new Wagon<FuelType, AxisVariant>(wagonParams, truckParams, overlandParams, mechanicalParams, controlledParams, transportParams);
     }
 }

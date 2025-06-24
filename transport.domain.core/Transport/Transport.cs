@@ -5,5 +5,5 @@ namespace transport.domain.core.Transport;
 
 public abstract class Transport(TransportParams transportParams)
 {
-    private readonly TransportParams _transportParams = transportParams;
+    public readonly TransportParams TransportParams = transportParams;
 }
