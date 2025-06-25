@@ -2,6 +2,7 @@ namespace transport.domain.core;
 
 public interface IEntity
 {
-    string Id { get; }
+    ushort Id { get; } 
+    string Model { get; }
     string Name { get; }
 }

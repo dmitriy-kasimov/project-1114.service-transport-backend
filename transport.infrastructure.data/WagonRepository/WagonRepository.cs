@@ -29,18 +29,18 @@ public class WagonRepository : IWagonRepository<FuelType, AxisVariant>
         var wagonParams = new WagonParams(null);
         var truckParams = new TruckParams(100.0f, 100.0f);
         
-        var axisParams = new AxisParams<AxisVariant>(AxisVariant.Three, [100.0f,100.0f,100.0f,100.0f,100.0f,100.0f,100.0f,100.0f,100.0f,100.0f]);
+        var axisParams = new AxisParams<AxisVariant>(0, "axis-1", "The First Axis", AxisVariant.Three, [100.0f,100.0f,100.0f,100.0f,100.0f,100.0f,100.0f,100.0f,100.0f,100.0f]);
         var axis = new Axis<AxisVariant>(axisParams);
-        var overlandParams = new OverlandParams<AxisVariant>("axis-1", "The first axis for Packer!", axis);
+        var overlandParams = new OverlandParams<AxisVariant>(axis);
 
         
-        var engineParams = new EngineParams<FuelType>("engine-1", "The first engine for Packer!", 100.0f, [FuelType.Diesel, FuelType.Octane92]);
+        var engineParams = new EngineParams<FuelType>(0, "engine-1", "The first Engine", 100.0f, [FuelType.Diesel, FuelType.Octane92]);
         var engine = new Engine<FuelType>(engineParams);
 
-        var petrolParams = new PetrolParams<FuelType>("petrol-1", "The first petrol for Packer!", FuelType.Diesel, 300.0f, 100.0f);
+        var petrolParams = new PetrolParams<FuelType>(0,"petrol-1", "The first Petrol", FuelType.Diesel, 300.0f, 100.0f);
         var petrol = new Petrol<FuelType>(petrolParams);
         
-        var batteryParams = new BatteryParams("battery-1", "The first battery for Packer!", 300.0f, 100.0f);
+        var batteryParams = new BatteryParams(0, "battery-1", "The first Battery", 300.0f, 100.0f);
         var battery = new Battery(batteryParams);
         
         var mechanicalParams = new MechanicalParams<FuelType>(engine, petrol, battery);
@@ -48,7 +48,7 @@ public class WagonRepository : IWagonRepository<FuelType, AxisVariant>
 
         var controlledParams = new ControlledParams();
 
-        var vehicle = Alt.CreateVehicle((uint)model, new Position(player.Position.X, player.Position.Y, player.Position.Z+1), new Rotation(player.Rotation.Roll, player.Rotation.Pitch, player.Rotation.Yaw));
+        var vehicle = Alt.CreateVehicle((uint)model, new Position(player.Position.X, player.Position.Y, player.Position.Z), new Rotation(player.Rotation.Roll, player.Rotation.Pitch, player.Rotation.Yaw));
         var transportParams = new TransportParams(vehicle, player);
         return new Wagon<FuelType, AxisVariant>(wagonParams, truckParams, overlandParams, mechanicalParams, controlledParams, transportParams);
     }
