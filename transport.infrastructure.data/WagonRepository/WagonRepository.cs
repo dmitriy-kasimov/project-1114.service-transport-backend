@@ -1,6 +1,8 @@
+using System.Data;
 using AltV.Net;
 using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
+using MySql.Data.MySqlClient;
 using transport.domain.core.Controlled.dto;
 using transport.domain.core.Mechanical;
 using transport.domain.core.Mechanical.dto;
@@ -26,6 +28,20 @@ public class WagonRepository : IWagonRepository<FuelType, AxisVariant>
 {
     public Wagon<FuelType, AxisVariant> Create(Player player, Models model)
     {
+        const string query = $"SELECT * FROM engines WHERE model=\"engine-1\"";
+        var command = new MySqlCommand(query);
+        var dt = MySql.MySql.QueryRead(command);
+        if (dt?.Rows.Count == 0)
+        {
+            Console.WriteLine("No data found");
+        }
+        else
+        {
+            Console.WriteLine(dt?.Rows[0]["name"]);
+        }
+        
+        
+        
         var wagonParams = new WagonParams(null);
         var truckParams = new TruckParams(100.0f, 100.0f);
         
