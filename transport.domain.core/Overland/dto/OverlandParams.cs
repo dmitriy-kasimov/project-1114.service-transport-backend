@@ -5,5 +5,5 @@ namespace transport.domain.core.Overland.dto;
 
 public class OverlandParams<TA>(Axis<TA> axis)
 {
-    private Axis<TA> _axis = axis;
+    public Axis<TA> Axis => axis;
 }

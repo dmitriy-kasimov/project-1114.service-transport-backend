@@ -6,5 +6,5 @@ namespace transport.domain.core.Mechanical;
 
 public abstract class Mechanical<T>(MechanicalParams<T> mechanicalParams,  ControlledParams controlledParams, TransportParams transportParams) : Controlled.Controlled(controlledParams, transportParams)
 {
-   private MechanicalParams<T> _mechanicalParams = mechanicalParams;
+   public MechanicalParams<T> MechanicalParams => mechanicalParams;
 }

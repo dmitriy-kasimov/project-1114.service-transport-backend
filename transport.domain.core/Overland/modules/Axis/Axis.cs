@@ -2,7 +2,7 @@
 
 namespace transport.domain.core.Overland.modules.Axis;
 
-public class Axis<TA>(AxisParams<TA> axisParams)
+public class Axis<TA>(AxisParams<TA> parameters)
 {
-    private AxisParams<TA> _axisParams = axisParams;
+    public AxisParams<TA> Params => parameters;
 }

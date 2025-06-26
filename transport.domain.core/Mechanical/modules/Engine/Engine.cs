@@ -2,7 +2,7 @@
 
 namespace transport.domain.core.Mechanical.modules.Engine;
 
-public class Engine<T>(EngineParams<T> engineParams)
+public class Engine<T>(EngineParams<T> parameters)
 {
-    private readonly EngineParams<T> _engineParams = engineParams;
+    public EngineParams<T> Params => parameters;
 }

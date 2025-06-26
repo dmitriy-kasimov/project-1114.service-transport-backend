@@ -7,5 +7,5 @@ namespace transport.domain.core.Overland;
 
 public abstract class Overland<T, TA>(OverlandParams<TA> overlandParams, MechanicalParams<T> mechanicalParams,  ControlledParams controlledParams, TransportParams transportParams) : Mechanical.Mechanical<T>(mechanicalParams ,controlledParams, transportParams)
 {
-    private OverlandParams<TA> _overlandParams = overlandParams;
+    public OverlandParams<TA> OverlandParams => overlandParams;
 }
