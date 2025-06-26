@@ -1,12 +1,10 @@
 namespace transport.domain.core.Mechanical.modules.Petrol.dto;
 
-public class PetrolParams<T>(ushort id, string model, string name,  T? fuelType, float maxFuel, float amountFuel = 0.0f) : IEntity
+public class PetrolParams<T>(EntityMetaData entityMetaData,  PetrolSpecification petrolSpecification, T? fuelType, float amountFuel = 0.0f) : IEntity, IPetrol
 {
-    public ushort Id => id;
-    public string Model => model;
-    public string Name => name;
+    public EntityMetaData MetaData => entityMetaData;
+    public PetrolSpecification Specification => petrolSpecification;
     
     private T? _fuelType = fuelType;
-    private readonly float _maxFuel = maxFuel;
     private float _amountFuel = amountFuel;
 }

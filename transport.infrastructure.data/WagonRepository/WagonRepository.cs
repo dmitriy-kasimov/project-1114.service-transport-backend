@@ -3,6 +3,7 @@ using AltV.Net;
 using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
 using MySql.Data.MySqlClient;
+using transport.domain.core;
 using transport.domain.core.Controlled.dto;
 using transport.domain.core.Mechanical;
 using transport.domain.core.Mechanical.dto;
@@ -44,19 +45,26 @@ public class WagonRepository : IWagonRepository<FuelType, AxisVariant>
         
         var wagonParams = new WagonParams(null);
         var truckParams = new TruckParams(100.0f, 100.0f);
-        
-        var axisParams = new AxisParams<AxisVariant>(0, "axis-1", "The First Axis", AxisVariant.Three, [100.0f,100.0f,100.0f,100.0f,100.0f,100.0f,100.0f,100.0f,100.0f,100.0f]);
+
+        var axisMetaData = new EntityMetaData(0, "axis-1", "The First Axis");
+        var axisSpecification = new AxisSpecification<AxisVariant>(AxisVariant.Three);
+        var axisParams = new AxisParams<AxisVariant>(axisMetaData, axisSpecification, [100.0f,100.0f,100.0f,100.0f,100.0f,100.0f,100.0f,100.0f,100.0f,100.0f]);
         var axis = new Axis<AxisVariant>(axisParams);
         var overlandParams = new OverlandParams<AxisVariant>(axis);
 
-        
-        var engineParams = new EngineParams<FuelType>(0, "engine-1", "The first Engine", 100.0f, [FuelType.Diesel, FuelType.Octane92]);
+        var engineMetaData = new EntityMetaData(0, "engine-1", "The first Engine");
+        var engineSpecification = new EngineSpecification<FuelType>(100.0f, [FuelType.Diesel, FuelType.Octane92]);
+        var engineParams = new EngineParams<FuelType>(engineMetaData, engineSpecification);
         var engine = new Engine<FuelType>(engineParams);
 
-        var petrolParams = new PetrolParams<FuelType>(0,"petrol-1", "The first Petrol", FuelType.Diesel, 300.0f, 100.0f);
+        var petrolMetaData = new EntityMetaData(0, "petrol-1", "The first Petrol");
+        var petrolSpecification = new PetrolSpecification(150.0f);
+        var petrolParams = new PetrolParams<FuelType>(petrolMetaData, petrolSpecification, FuelType.Diesel, 100.0f);
         var petrol = new Petrol<FuelType>(petrolParams);
         
-        var batteryParams = new BatteryParams(0, "battery-1", "The first Battery", 300.0f, 100.0f);
+        var batteryMetaData = new EntityMetaData(0, "battery-1", "The first Battery");
+        var batterySpecification = new BatterySpecification(60.0f);
+        var batteryParams = new BatteryParams(batteryMetaData, batterySpecification, 50.0f);
         var battery = new Battery(batteryParams);
         
         var mechanicalParams = new MechanicalParams<FuelType>(engine, petrol, battery);
