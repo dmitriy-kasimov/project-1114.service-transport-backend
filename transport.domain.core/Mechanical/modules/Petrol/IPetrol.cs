@@ -1,4 +1,4 @@
-namespace transport.domain.core.Mechanical.modules.Petrol.dto;
+namespace transport.domain.core.Mechanical.modules.Petrol;
 
 public class PetrolSpecification(float maxFuel)
 {

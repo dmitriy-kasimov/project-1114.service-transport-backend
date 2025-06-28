@@ -2,7 +2,10 @@
 
 namespace transport.domain.core.Overland.modules.Axis;
 
-public class Axis<TA>(AxisParams<TA> parameters)
+public class Axis<T>(EntityMetaData entityMetaData, AxisSpecification<T> axisSpecification, float[] state): IEntity, IAxis<T>
 {
-    public AxisParams<TA> Params => parameters;
+    public EntityMetaData MetaData => entityMetaData;
+    public AxisSpecification<T> Specification => axisSpecification;
+    
+    private float[] _state = state;
 }

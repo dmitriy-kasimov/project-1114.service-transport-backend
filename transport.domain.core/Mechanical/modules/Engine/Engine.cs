@@ -1,8 +1,8 @@
-﻿using transport.domain.core.Mechanical.modules.Engine.dto;
+﻿namespace transport.domain.core.Mechanical.modules.Engine;
 
-namespace transport.domain.core.Mechanical.modules.Engine;
-
-public class Engine<T>(EngineParams<T> parameters)
+public class Engine<T>(EntityMetaData entityMetaData, EngineSpecification<T> engineSpecification): IEntity, IEngine<T>
 {
-    public EngineParams<T> Params => parameters;
+    public EntityMetaData MetaData => entityMetaData;
+    
+    public EngineSpecification<T> Specification => engineSpecification;
 }

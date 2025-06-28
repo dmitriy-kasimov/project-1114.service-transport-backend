@@ -1,4 +1,4 @@
-namespace transport.domain.core.Mechanical.modules.Engine.dto;
+namespace transport.domain.core.Mechanical.modules.Engine;
 
 public class EngineSpecification<T>(float bsfc, T[] acceptedTypesFuel)
 {

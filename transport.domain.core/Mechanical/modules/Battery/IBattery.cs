@@ -1,4 +1,4 @@
-namespace transport.domain.core.Mechanical.modules.Battery.dto;
+namespace transport.domain.core.Mechanical.modules.Battery;
 
 public class BatterySpecification(float maxCharge)
 {
