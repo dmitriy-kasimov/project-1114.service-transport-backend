@@ -1,11 +1,11 @@
 namespace transport.domain.core.Mechanical.modules.Engine;
 
-public class EngineSpecification<T>(float bsfc, T[] acceptedTypesFuel)
+public class EngineSpecification<T>(decimal bsfc, List<T> acceptedTypesFuel)
 {
     // Brake-Specific Fuel Consumption (BSFC): How much fuel is used per unit of power (g/kWh).
-    public float Bsfc => bsfc;
+    public decimal Bsfc => bsfc;
 
-    public T[] AcceptedTypesFuel => acceptedTypesFuel;
+    public List<T> AcceptedTypesFuel => acceptedTypesFuel;
 }
 
 public interface IEngine<T>

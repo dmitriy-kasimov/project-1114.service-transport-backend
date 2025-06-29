@@ -20,6 +20,7 @@ using transport.domain.core.Truck.dto;
 using transport.domain.core.Wagon;
 using transport.domain.core.Wagon.dto;
 using transport.domain.interfaces;
+using transport.infrastructure.data.Models;
 
 namespace transport.infrastructure.data.WagonRepository;
 
@@ -30,7 +31,7 @@ public class WagonRepository : IWagonRepository<FuelType, AxisVariant>
     {
         _wagonDbContext = new WagonDbContext();
     }
-    public Wagon<FuelType, AxisVariant> Create(Player player, domain.core.Wagon.Models model)
+    public async Task<Wagon<FuelType, AxisVariant>> Create(Player player, domain.core.Wagon.Models model)
     {
         // const string query = $"SELECT * FROM engines WHERE model=\"engine-1\"";
         // var command = new MySqlCommand(query);
@@ -55,8 +56,10 @@ public class WagonRepository : IWagonRepository<FuelType, AxisVariant>
         var overlandParams = new OverlandParams<AxisVariant>(axis);
 
         var engineMetaData = new EntityMetaData(0, "engine-1", "The first Engine");
-        var engineSpecification = new EngineSpecification<FuelType>(100.0f, [FuelType.Diesel, FuelType.Octane92]);
+        var engineSpecification = new EngineSpecification<FuelType>(100.0m, [FuelType.Diesel, FuelType.Octane92]);
         var engine = new Engine<FuelType>(engineMetaData, engineSpecification);
+        await AddEngineAsync(engineMetaData, engineSpecification);
+        
 
         var petrolMetaData = new EntityMetaData(0, "petrol-1", "The first Petrol");
         var petrolSpecification = new PetrolSpecification(150.0f);
@@ -74,5 +77,23 @@ public class WagonRepository : IWagonRepository<FuelType, AxisVariant>
         var vehicle = Alt.CreateVehicle((uint)model, new Position(player.Position.X, player.Position.Y, player.Position.Z), new Rotation(player.Rotation.Roll, player.Rotation.Pitch, player.Rotation.Yaw));
         var transportParams = new TransportParams(vehicle, player);
         return new Wagon<FuelType, AxisVariant>(wagonParams, truckParams, overlandParams, mechanicalParams, controlledParams, transportParams);
+    }
+
+    public async Task<List<EngineEntity<FuelType>>?> GetEnginesAsync()
+    {
+        return await _wagonDbContext.Engines.AsNoTracking().ToListAsync();
+    }
+
+    public async Task AddEngineAsync(EntityMetaData entityMetaData, EngineSpecification<FuelType> specification)
+    {
+        var z = new EngineEntity<FuelType>
+        {
+            Model = entityMetaData.Model,
+            Name = entityMetaData.Name,
+            Bsfc = specification.Bsfc,
+            AcceptedTypesFuel = specification.AcceptedTypesFuel,
+        };
+        await _wagonDbContext.AddAsync(z);
+        await _wagonDbContext.SaveChangesAsync();
     }
 }
