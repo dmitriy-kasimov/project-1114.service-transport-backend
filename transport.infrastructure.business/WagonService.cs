@@ -10,21 +10,22 @@ namespace transport.infrastructure.business;
 
 public class WagonService(IWagonRepository<FuelType, AxisVariant> wagonRepository) : IWagonService
 {
-    //private readonly Dictionary<IVehicle, Wagon<FuelType, AxisVariant>> _wagons = [];
+    private readonly Dictionary<IVehicle, Wagon<FuelType, AxisVariant>> _wagons = [];
 
     public void Create(Player player, Models model)
     {
-        wagonRepository.Create(player, Models.Packer);
+        var newWagon = wagonRepository.Create(player, Models.Packer);
         //_wagons[newWagon.TransportParams.Vehicle] = newWagon;
-        //PrintWagons();
+        _wagons[newWagon.Result.TransportParams.Vehicle] = newWagon.Result;
+        PrintWagons();
     }
 
-    // private void PrintWagons()
-    // {
-    //     Console.WriteLine("Owners of wagons:");
-    //     foreach (var wagon in _wagons)
-    //     {
-    //         Console.WriteLine(wagon.Value.TransportParams.Owner?.Name);
-    //     }
-    // }
+    private void PrintWagons()
+    {
+        Console.WriteLine("Owners of wagons:");
+        foreach (var wagon in _wagons)
+        {
+            Console.WriteLine(wagon.Value.TransportParams.Owner?.Name);
+        }
+    }
 }
