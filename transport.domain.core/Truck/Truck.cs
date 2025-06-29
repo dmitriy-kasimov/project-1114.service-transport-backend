@@ -9,5 +9,5 @@ namespace transport.domain.core.Truck;
 
 public abstract class Truck<T, TA>(TruckParams truckParams, OverlandParams<TA> overlandParams, MechanicalParams<T> mechanicalParams,  ControlledParams controlledParams, TransportParams transportParams) : Overland<T, TA>(overlandParams ,mechanicalParams ,controlledParams, transportParams)
 {
-     private readonly TruckParams _truckParams = truckParams;
+     public readonly TruckParams TruckParams = truckParams;
 }
