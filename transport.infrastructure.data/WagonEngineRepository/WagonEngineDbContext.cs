@@ -1,15 +1,14 @@
 using Microsoft.EntityFrameworkCore;
 using transport.domain.core.Mechanical;
-using transport.infrastructure.data.Configurations;
-using transport.infrastructure.data.Models;
+using transport.infrastructure.data.WagonEngineRepository.Configurations;
+using transport.infrastructure.data.WagonEngineRepository.Models;
 
-namespace transport.infrastructure.data.WagonRepository;
+namespace transport.infrastructure.data.WagonEngineRepository;
 
-//public class WagonDbContext<T>(DbContextOptions<WagonDbContext<T>> options) : DbContext(options)
-public class WagonDbContext : DbContext
+public class WagonEngineDbContext : DbContext
 {
-    public DbSet<EngineEntity<FuelType>> Engines { get; set; }
-
+    public DbSet<EngineEntity<FuelType>> WagonEngines { get; set; }
+    
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder.UseMySQL("SERVER=localhost;DATABASE=service-transport;UID=root;Password=;Pooling=true;");

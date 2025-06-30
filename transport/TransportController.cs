@@ -9,7 +9,7 @@ namespace Transport;
 
 public class TransportController : IScript
 {
-    private readonly WagonService _wagonsService = new(new WagonRepository());
+    private readonly WagonService _wagonsService = new();
     
     [Command("truck")]
     public void SpawnTruck(Player player)

@@ -1,4 +1,4 @@
-namespace transport.infrastructure.data.Models;
+namespace transport.infrastructure.data.WagonEngineRepository.Models;
 
 public class EngineEntity<T>
 {

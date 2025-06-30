@@ -14,6 +14,17 @@ public class Test : IScript
         player.Emit("s:c:vehicleInit");
     }
 
+    [Command("dodge")]
+    public void SpawnDodge(Player player)
+    {
+        var position = player.Position;
+        var rotation = player.Rotation;
+        var vehicle = Alt.CreateVehicle(VehicleModel.Gauntlet, position, rotation);
+        
+        vehicle.ManualEngineControl = true;
+        vehicle.EngineOn = false;
+    }
+    
     [Command("hauler")]
     public void SpawnHauler(Player player)
     {

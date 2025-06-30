@@ -1,9 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using transport.domain.core.Mechanical.modules.Engine;
-using transport.infrastructure.data.Models;
+using transport.infrastructure.data.WagonEngineRepository.Models;
 
-namespace transport.infrastructure.data.Configurations;
+namespace transport.infrastructure.data.WagonEngineRepository.Configurations;
 
 public class EngineConfiguration<T> : IEntityTypeConfiguration<EngineEntity<T>>
 {

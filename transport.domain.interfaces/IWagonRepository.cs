@@ -6,5 +6,5 @@ namespace transport.domain.interfaces;
 public interface IWagonRepository<T, TA>
 {
     /* параметры: модель, координаты, поворот */
-    public Task<Wagon<T,TA>> Create(Player player,  Models model);
+    public Wagon<T,TA> Create(Player player,  Models model);
 }
