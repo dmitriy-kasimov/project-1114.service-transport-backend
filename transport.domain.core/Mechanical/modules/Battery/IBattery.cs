@@ -1,8 +1,8 @@
 namespace transport.domain.core.Mechanical.modules.Battery;
 
-public class BatterySpecification(float maxCharge)
+public class BatterySpecification(decimal maxCharge)
 {
-    public float MaxCharge => maxCharge;
+    public decimal MaxCharge => maxCharge;
 }
 
 public interface IBattery

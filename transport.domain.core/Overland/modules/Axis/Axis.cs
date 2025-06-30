@@ -1,11 +1,10 @@
-﻿using transport.domain.core.Overland.modules.Axis.dto;
+﻿namespace transport.domain.core.Overland.modules.Axis;
 
-namespace transport.domain.core.Overland.modules.Axis;
-
-public class Axis<T>(EntityMetaData entityMetaData, AxisSpecification<T> axisSpecification, float[] state): IEntity, IAxis<T>
+// TODO Nullable List<decimal> state
+public class Axis<T>(EntityMetaData entityMetaData, AxisSpecification<T> axisSpecification, List<decimal> state): IEntity, IAxis<T>
 {
     public EntityMetaData MetaData => entityMetaData;
     public AxisSpecification<T> Specification => axisSpecification;
     
-    private float[] _state = state;
+    private List<decimal> _state = state;
 }

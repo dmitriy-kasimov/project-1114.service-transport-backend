@@ -1,8 +1,8 @@
 namespace transport.domain.core.Mechanical.modules.Petrol;
 
-public class PetrolSpecification(float maxFuel)
+public class PetrolSpecification(decimal capacity)
 {
-    public float MaxFuel => maxFuel;
+    public decimal Capacity => capacity;
 }
 
 public interface IPetrol

@@ -1,10 +1,11 @@
 using AltV.Net.Elements.Entities;
-using transport.domain.core;
 using transport.domain.core.Mechanical;
-using transport.domain.core.Mechanical.modules.Engine;
 using transport.domain.core.Overland;
 using transport.domain.core.Wagon;
+using transport.infrastructure.data.WagonAxisRepository;
+using transport.infrastructure.data.WagonBatteryRepository;
 using transport.infrastructure.data.WagonEngineRepository;
+using transport.infrastructure.data.WagonPetrolRepository;
 using transport.infrastructure.data.WagonRepository;
 using transport.services.interfaces;
 
@@ -13,44 +14,36 @@ namespace transport.infrastructure.business;
 public class WagonService : IWagonService
 {
     private readonly WagonRepository _wagonRepository = new WagonRepository();
-    private readonly WagonEngineRepository _wagonEngineRepository =  new WagonEngineRepository();
+    
+    private readonly WagonBatteryRepository _batteryRepository =  new WagonBatteryRepository();
+    private readonly WagonEngineRepository _engineRepository =  new WagonEngineRepository();
+    private readonly WagonPetrolRepository _petrolRepository =  new WagonPetrolRepository();
+    private readonly WagonAxisRepository _axisRepository =  new WagonAxisRepository();
     
     private readonly Dictionary<IVehicle, Wagon<FuelType, AxisVariant>> _wagons = [];
     
 
     public async void Create(Player player, Models model)
     {
-        // try
-        // {
-        //     Console.WriteLine("Creating engine...");
-        //     var engineMetaData = new EntityMetaData("0", "engine-1", "The first Engine");
-        //     var engineSpecification = new EngineSpecification<FuelType>(100.0m, [FuelType.Diesel, FuelType.Octane92]);
-        //     Console.WriteLine("Trying to write engine into DB...");
-        //     await _wagonEngineRepository.AddAsync(engineMetaData, engineSpecification);
-        //     Console.WriteLine("Engine successfully wrote into DB!");
-        // }
-        // catch (Exception e)
-        // {
-        //     Console.WriteLine("Failed try to write engine into DB:");
-        //     Console.WriteLine(e);
-        // }   
         try
         {
-            Console.WriteLine("Trying to read engine from DB by model with value \"engine-1\"...");
-            var z = await _wagonEngineRepository.GetByModel("engine-1");
-            Console.WriteLine("Engine successfully read from DB!");
-            Console.WriteLine(z);
+            Console.WriteLine("Trying to read modules...");
+            var engine = await _engineRepository.GetByModelAsync("engine-1");
+            var petrol = await _petrolRepository.GetByModelAsync("petrol-1");
+            var battery = await _batteryRepository.GetByModelAsync("battery-1");
+            var axis = await _axisRepository.GetByModelAsync("axis-1");
+            Console.WriteLine("Modules successfully has been read from DB!");
+
+            var newWagon = _wagonRepository.Create(player, Models.Packer, engine!, petrol!, battery!, axis!);
+            _wagons[newWagon.TransportParams.Vehicle] = newWagon;
+        
+            PrintWagons();
         }
         catch (Exception e)
         {
             Console.WriteLine("Failed try to read engine from DB:");
             Console.WriteLine(e);
         }
-        
-        var newWagon = _wagonRepository.Create(player, Models.Packer);
-        _wagons[newWagon.TransportParams.Vehicle] = newWagon;
-        
-        PrintWagons();
     }
 
     private void PrintWagons()
@@ -58,7 +51,15 @@ public class WagonService : IWagonService
         Console.WriteLine("Owners of wagons:");
         foreach (var wagon in _wagons)
         {
-            Console.WriteLine(wagon.Value.TransportParams.Owner?.Name);
+            Console.WriteLine("Wagon of " + wagon.Value.TransportParams.Owner?.Name + "'");
+            Console.WriteLine("Engine name " + wagon.Value.MechanicalParams.Engine.MetaData.Name);
+            Console.WriteLine("Engine bsfc " + wagon.Value.MechanicalParams.Engine.Specification.Bsfc);
+            Console.WriteLine("Petrol name " + wagon.Value.MechanicalParams.Petrol.MetaData.Name);
+            Console.WriteLine("Petrol capacity " + wagon.Value.MechanicalParams.Petrol.Specification.Capacity);
+            Console.WriteLine("Battery name " + wagon.Value.MechanicalParams.Battery.MetaData.Name);
+            Console.WriteLine("Battery Capacity " + wagon.Value.MechanicalParams.Battery.Specification.MaxCharge);
+            Console.WriteLine("Axis name " + wagon.Value.OverlandParams.Axis.MetaData.Name);
+            Console.WriteLine("Axis variant " + wagon.Value.OverlandParams.Axis.Specification.Axis);
         }
     }
 }

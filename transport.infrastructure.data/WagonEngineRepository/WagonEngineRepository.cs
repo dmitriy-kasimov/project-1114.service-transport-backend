@@ -9,11 +9,11 @@ namespace transport.infrastructure.data.WagonEngineRepository;
 
 public class WagonEngineRepository : IWagonEngineRepository<FuelType>
 {
-    private readonly WagonEngineDbContext _wagonEngineDbContext = new();
+    private readonly WagonEngineDbContext _dbContext = new();
 
-    public async Task<Engine<FuelType>?> GetByModel(string model)
+    public async Task<Engine<FuelType>?> GetByModelAsync(string model)
     {
-        var result = await _wagonEngineDbContext.WagonEngines
+        var result = await _dbContext.WagonEngines
             .AsNoTracking()
             .FirstOrDefaultAsync(c => c.Model == model);
 
@@ -34,7 +34,7 @@ public class WagonEngineRepository : IWagonEngineRepository<FuelType>
             Bsfc = specification.Bsfc,
             AcceptedTypesFuel = specification.AcceptedTypesFuel,
         };
-        await _wagonEngineDbContext.AddAsync(z);
-        await _wagonEngineDbContext.SaveChangesAsync();
+        await _dbContext.AddAsync(z);
+        await _dbContext.SaveChangesAsync();
     }
 }

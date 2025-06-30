@@ -1,4 +1,4 @@
-namespace transport.domain.core.Overland.modules.Axis.dto;
+namespace transport.domain.core.Overland.modules.Axis;
 
 public class AxisSpecification<T>(T axis)
 {
