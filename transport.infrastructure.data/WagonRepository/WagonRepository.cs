@@ -1,6 +1,7 @@
 using AltV.Net;
 using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
+using Microsoft.EntityFrameworkCore;
 using transport.domain.core;
 using transport.domain.core.Controlled.dto;
 using transport.domain.core.Mechanical;
@@ -16,11 +17,13 @@ using transport.domain.core.Truck.dto;
 using transport.domain.core.Wagon;
 using transport.domain.core.Wagon.dto;
 using transport.domain.interfaces;
+using transport.infrastructure.data.WagonRepository.Models;
 
 namespace transport.infrastructure.data.WagonRepository;
 
 public class WagonRepository : IWagonRepository<FuelType, AxisVariant>
 {
+    private readonly WagonDbContext _dbContext = new();
     public Wagon<FuelType, AxisVariant> Create(Player player, domain.core.Wagon.Models model, Engine<FuelType> engine, Petrol<FuelType> petrol, Battery battery, Axis<AxisVariant> axis)
     {
         var wagonParams = new WagonParams(null);
@@ -67,5 +70,110 @@ public class WagonRepository : IWagonRepository<FuelType, AxisVariant>
         var vehicle = Alt.CreateVehicle((uint)model, new Position(player.Position.X, player.Position.Y, player.Position.Z), new Rotation(player.Rotation.Roll, player.Rotation.Pitch, player.Rotation.Yaw));
         var transportParams = new TransportParams(vehicle, player);
         return new Wagon<FuelType, AxisVariant>(wagonParams, truckParams, overlandParams, mechanicalParams, controlledParams, transportParams);
+    }
+    
+    public async Task<Axis<AxisVariant>?> GetAxisByModelAsync(string model)
+    {
+        var result = await _dbContext.WagonAxis
+            .AsNoTracking()
+            .FirstOrDefaultAsync(c => c.Model == model);
+
+
+        if (result == null) return null;
+        
+        var metaData = new EntityMetaData("SOME_GUID", result.Model, result.Name);
+        var specification = new AxisSpecification<AxisVariant>(result.Axis);
+        return new Axis<AxisVariant>(metaData, specification, []);
+    }
+    
+    public async Task AddAxisAsync(EntityMetaData entityMetaData, AxisSpecification<AxisVariant> specification)
+    {
+        var z = new AxisEntity
+        {
+            Model = entityMetaData.Model,
+            Name = entityMetaData.Name,
+            Axis = specification.Axis,
+        };
+        await _dbContext.AddAsync(z);
+        await _dbContext.SaveChangesAsync();
+    }
+    
+    public async Task<Battery?> GetBatteryByModelAsync(string model)
+    {
+        var result = await _dbContext.WagonBatteries
+            .AsNoTracking()
+            .FirstOrDefaultAsync(c => c.Model == model);
+
+
+        if (result == null) return null;
+        
+        var engineMetaData = new EntityMetaData("SOME_GUID", result.Model, result.Name);
+        var engineSpecification = new BatterySpecification(result.MaxCharge);
+        return  new Battery(engineMetaData, engineSpecification);
+    }
+    
+    public async Task AddBatteryAsync(EntityMetaData entityMetaData, BatterySpecification specification)
+    {
+        var z = new BatteryEntity
+        {
+            Model = entityMetaData.Model,
+            Name = entityMetaData.Name,
+            MaxCharge = specification.MaxCharge,
+        };
+        await _dbContext.AddAsync(z);
+        await _dbContext.SaveChangesAsync();
+    }
+    
+    public async Task<Engine<FuelType>?> GetEngineByModelAsync(string model)
+    {
+        var result = await _dbContext.WagonEngines
+            .AsNoTracking()
+            .FirstOrDefaultAsync(c => c.Model == model);
+
+
+        if (result == null) return null;
+        
+        var engineMetaData = new EntityMetaData("SOME_GUID", result.Model, result.Name);
+        var engineSpecification = new EngineSpecification<FuelType>(result.Bsfc, result.AcceptedTypesFuel);
+        return  new Engine<FuelType>(engineMetaData, engineSpecification);
+    }
+    
+    public async Task AddEngineAsync(EntityMetaData entityMetaData, EngineSpecification<FuelType> specification)
+    {
+        var z = new EngineEntity
+        {
+            Model = entityMetaData.Model,
+            Name = entityMetaData.Name,
+            Bsfc = specification.Bsfc,
+            AcceptedTypesFuel = specification.AcceptedTypesFuel,
+        };
+        await _dbContext.AddAsync(z);
+        await _dbContext.SaveChangesAsync();
+    }
+    
+    public async Task<Petrol<FuelType>?> GetPetrolByModelAsync(string model)
+    {
+        var result = await _dbContext.WagonPetrol
+            .AsNoTracking()
+            .FirstOrDefaultAsync(c => c.Model == model);
+
+
+        if (result == null) return null;
+        
+        var metaData = new EntityMetaData("SOME_GUID", result.Model, result.Name);
+        var specification = new PetrolSpecification(result.Capacity);
+        return new Petrol<FuelType>(metaData, specification, FuelType.Octane92);
+    }
+    
+    public async Task AddPetrolAsync(EntityMetaData entityMetaData, PetrolSpecification specification)
+    {
+        var z = new PetrolEntity
+        {
+            Model = entityMetaData.Model,
+            Name = entityMetaData.Name,
+            Capacity = specification.Capacity
+        };
+        await _dbContext.AddAsync(z);
+        await _dbContext.SaveChangesAsync();
     }
 }

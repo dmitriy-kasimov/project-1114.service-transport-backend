@@ -1,10 +1,12 @@
-namespace transport.infrastructure.data.WagonBatteryRepository.Models;
+using transport.domain.core.Overland;
 
-public class BatteryEntity
+namespace transport.infrastructure.data.WagonRepository.Models;
+
+public class AxisEntity
 {
     public Guid Id { get; set; }
     public string Model { get; set; } = string.Empty;
     public string Name { get; set;} = string.Empty;
-    public decimal MaxCharge { get; set; } = decimal.Zero;
+    public AxisVariant Axis { get; set; } = default!;
     // хранить список совместимых тс
 }

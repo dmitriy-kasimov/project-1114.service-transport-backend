@@ -2,10 +2,6 @@ using AltV.Net.Elements.Entities;
 using transport.domain.core.Mechanical;
 using transport.domain.core.Overland;
 using transport.domain.core.Wagon;
-using transport.infrastructure.data.WagonAxisRepository;
-using transport.infrastructure.data.WagonBatteryRepository;
-using transport.infrastructure.data.WagonEngineRepository;
-using transport.infrastructure.data.WagonPetrolRepository;
 using transport.infrastructure.data.WagonRepository;
 using transport.services.interfaces;
 
@@ -15,11 +11,6 @@ public class WagonService : IWagonService
 {
     private readonly WagonRepository _wagonRepository = new WagonRepository();
     
-    private readonly WagonBatteryRepository _batteryRepository =  new WagonBatteryRepository();
-    private readonly WagonEngineRepository _engineRepository =  new WagonEngineRepository();
-    private readonly WagonPetrolRepository _petrolRepository =  new WagonPetrolRepository();
-    private readonly WagonAxisRepository _axisRepository =  new WagonAxisRepository();
-    
     private readonly Dictionary<IVehicle, Wagon<FuelType, AxisVariant>> _wagons = [];
     
 
@@ -28,10 +19,10 @@ public class WagonService : IWagonService
         try
         {
             Console.WriteLine("Trying to read modules...");
-            var engine = await _engineRepository.GetByModelAsync("engine-1");
-            var petrol = await _petrolRepository.GetByModelAsync("petrol-1");
-            var battery = await _batteryRepository.GetByModelAsync("battery-1");
-            var axis = await _axisRepository.GetByModelAsync("axis-1");
+            var engine = await _wagonRepository.GetEngineByModelAsync("engine-1");
+            var petrol = await _wagonRepository.GetPetrolByModelAsync("petrol-1");
+            var battery = await _wagonRepository.GetBatteryByModelAsync("battery-1");
+            var axis = await _wagonRepository.GetAxisByModelAsync("axis-1");
             Console.WriteLine("Modules successfully has been read from DB!");
 
             var newWagon = _wagonRepository.Create(player, Models.Packer, engine!, petrol!, battery!, axis!);

@@ -1,8 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using transport.infrastructure.data.WagonPetrolRepository.Models;
+using transport.infrastructure.data.WagonRepository.Models;
 
-namespace transport.infrastructure.data.WagonPetrolRepository.Configurations;
+namespace transport.infrastructure.data.WagonRepository.Configurations;
 
 public class PetrolConfiguration: IEntityTypeConfiguration<PetrolEntity>
 {

@@ -19,7 +19,7 @@ public class Test : IScript
     {
         var position = player.Position;
         var rotation = player.Rotation;
-        var vehicle = Alt.CreateVehicle(VehicleModel.Gauntlet, position, rotation);
+        var vehicle = Alt.CreateVehicle(VehicleModel.Gauntlet6, position, rotation);
         
         vehicle.ManualEngineControl = true;
         vehicle.EngineOn = false;

@@ -1,4 +1,4 @@
-namespace transport.infrastructure.data.WagonPetrolRepository.Models;
+namespace transport.infrastructure.data.WagonRepository.Models;
 
 public class PetrolEntity
 {

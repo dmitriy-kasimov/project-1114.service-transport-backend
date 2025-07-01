@@ -1,9 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using transport.infrastructure.data.WagonBatteryRepository.Models;
-using transport.infrastructure.data.WagonEngineRepository.Models;
+using transport.infrastructure.data.WagonRepository.Models;
 
-namespace transport.infrastructure.data.WagonBatteryRepository.Configurations;
+namespace transport.infrastructure.data.WagonRepository.Configurations;
 
 public class BatteryConfiguration : IEntityTypeConfiguration<BatteryEntity>
 {
