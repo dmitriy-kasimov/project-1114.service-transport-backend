@@ -8,4 +8,7 @@ public class WagonEntity
     public domain.core.Wagon.Models Model { get; set; }
 
     public List<EngineEntity> CompatibleEngines { get; set; } = [];
+    public List<PetrolEntity> CompatiblePetrol { get; set; } = [];
+    public List<AxisEntity> CompatibleAxis { get; set; } = [];
+    public List<BatteryEntity> CompatibleBatteries { get; set; } = [];
 }

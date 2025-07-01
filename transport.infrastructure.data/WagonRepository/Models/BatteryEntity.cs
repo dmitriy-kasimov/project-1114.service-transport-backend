@@ -6,5 +6,7 @@ public class BatteryEntity
     public string Model { get; set; } = string.Empty;
     public string Name { get; set;} = string.Empty;
     public decimal MaxCharge { get; set; } = decimal.Zero;
+    
+    public List<WagonEntity> CompatibleModels { get; set; } = [];
     // хранить список совместимых тс
 }

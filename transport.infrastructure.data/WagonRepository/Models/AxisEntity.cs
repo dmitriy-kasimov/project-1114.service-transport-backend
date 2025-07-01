@@ -8,5 +8,7 @@ public class AxisEntity
     public string Model { get; set; } = string.Empty;
     public string Name { get; set;} = string.Empty;
     public AxisVariant Axis { get; set; } = default!;
+    
+    public List<WagonEntity> CompatibleModels { get; set; } = [];
     // хранить список совместимых тс
 }

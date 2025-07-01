@@ -21,8 +21,9 @@ public class WagonDbContext : DbContext
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.ApplyConfiguration(new WagonConfiguration<FuelType>());
-        modelBuilder.ApplyConfiguration(new AxisConfiguration<AxisVariant>());
+        modelBuilder.ApplyConfiguration(new WagonConfiguration());
+        
+        modelBuilder.ApplyConfiguration(new AxisConfiguration());
         modelBuilder.ApplyConfiguration(new BatteryConfiguration());
         modelBuilder.ApplyConfiguration(new EngineConfiguration());
         modelBuilder.ApplyConfiguration(new PetrolConfiguration());

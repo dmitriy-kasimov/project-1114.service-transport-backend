@@ -12,5 +12,9 @@ public class BatteryConfiguration : IEntityTypeConfiguration<BatteryEntity>
         builder.Property(entity => entity.Model);
         builder.Property(entity => entity.Name);
         builder.Property(entity => entity.MaxCharge);
+        
+        builder
+            .HasMany(c => c.CompatibleModels)
+            .WithMany(c => c.CompatibleBatteries);
     }
 }

@@ -4,7 +4,7 @@ using transport.infrastructure.data.WagonRepository.Models;
 
 namespace transport.infrastructure.data.WagonRepository.Configurations;
 
-public class AxisConfiguration<T> : IEntityTypeConfiguration<AxisEntity>
+public class AxisConfiguration : IEntityTypeConfiguration<AxisEntity>
 {
     public void Configure(EntityTypeBuilder<AxisEntity> builder)
     {
@@ -12,5 +12,9 @@ public class AxisConfiguration<T> : IEntityTypeConfiguration<AxisEntity>
         builder.Property(entity => entity.Model);
         builder.Property(entity => entity.Name);
         builder.Property(entity => entity.Axis);
+        
+        builder
+            .HasMany(c => c.CompatibleModels)
+            .WithMany(c => c.CompatibleAxis);
     }
 }
