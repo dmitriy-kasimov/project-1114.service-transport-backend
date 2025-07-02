@@ -14,8 +14,10 @@ public class PetrolConfiguration: IEntityTypeConfiguration<PetrolEntity>
         
         builder.Property(entity => entity.Capacity);
         
-        builder
-            .HasMany(c => c.CompatibleModels)
-            .WithMany(c => c.CompatiblePetrol);
+        builder.Property(entity => entity.CompatibleTransports);
+        
+        // builder
+        //     .HasMany(c => c.CompatibleModels)
+        //     .WithMany(c => c.CompatiblePetrol);
     }
 }

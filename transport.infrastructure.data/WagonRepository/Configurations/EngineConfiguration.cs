@@ -14,8 +14,10 @@ public class EngineConfiguration : IEntityTypeConfiguration<EngineEntity>
         builder.Property(entity => entity.Bsfc);
         builder.Property(entity => entity.AcceptedTypesFuel);
 
-        builder
-            .HasMany(c => c.CompatibleModels)
-            .WithMany(c => c.CompatibleEngines);
+        builder.Property(entity => entity.CompatibleTransports);
+        
+        // builder
+        //     .HasMany(c => c.CompatibleModels)
+        //     .WithMany(c => c.CompatibleEngines);
     }
 }

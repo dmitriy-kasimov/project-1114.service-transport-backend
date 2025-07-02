@@ -13,8 +13,10 @@ public class AxisConfiguration : IEntityTypeConfiguration<AxisEntity>
         builder.Property(entity => entity.Name);
         builder.Property(entity => entity.Axis);
         
-        builder
-            .HasMany(c => c.CompatibleModels)
-            .WithMany(c => c.CompatibleAxis);
+        builder.Property(entity => entity.CompatibleTransports);
+        
+        // builder
+        //     .HasMany(c => c.CompatibleModels)
+        //     .WithMany(c => c.CompatibleAxis);
     }
 }

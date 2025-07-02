@@ -11,12 +11,17 @@ public class WagonConfiguration : IEntityTypeConfiguration<WagonEntity>
         builder.HasKey(entity => entity.Id);
         builder.Property(entity => entity.Model);
         
-        builder
-            .HasMany(c => c.CompatibleEngines)
-            .WithMany(c => c.CompatibleModels);
+        builder.Property(entity => entity.CompatibleEngines);
+        builder.Property(entity => entity.CompatibleAxis);
+        builder.Property(entity => entity.CompatibleBatteries);
+        builder.Property(entity => entity.CompatiblePetrol);
         
-        builder
-            .HasMany(c => c.CompatibleAxis)
-            .WithMany(c => c.CompatibleModels);
+        // builder
+        //     .HasMany(c => c.CompatibleEngines)
+        //     .WithMany(c => c.CompatibleModels);
+        //
+        // builder
+        //     .HasMany(c => c.CompatibleAxis)
+        //     .WithMany(c => c.CompatibleModels);
     }
 }

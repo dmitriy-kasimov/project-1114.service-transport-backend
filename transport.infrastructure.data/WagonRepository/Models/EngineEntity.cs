@@ -10,6 +10,6 @@ public class EngineEntity
     public decimal Bsfc { get; set;} = decimal.Zero;
     public List<FuelType> AcceptedTypesFuel { get; set; } = [];
     
-    public List<WagonEntity> CompatibleModels { get; set; } = [];
+    public List<domain.core.Wagon.Models> CompatibleTransports { get; set; } = [];
     // хранить список совместимых тс
 }
