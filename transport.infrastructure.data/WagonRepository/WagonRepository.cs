@@ -24,14 +24,14 @@ namespace transport.infrastructure.data.WagonRepository;
 public class WagonRepository : IWagonRepository<FuelType, AxisVariant>
 {
     private readonly WagonDbContext _dbContext = new();
-    public Wagon<FuelType, AxisVariant> Create(Player player, domain.core.Wagon.Models model, Engine<FuelType> engine, Petrol<FuelType> petrol, Battery battery, Axis<AxisVariant> axis)
+    public Wagon<FuelType, AxisVariant> Create(Player player, domain.core.Wagon.Models model, Engine<FuelType, domain.core.Wagon.Models> engine, Petrol<FuelType, domain.core.Wagon.Models> petrol, Battery<domain.core.Wagon.Models> battery, Axis<AxisVariant, domain.core.Wagon.Models> axis)
     {
         var wagonParams = new WagonParams(null);
         var truckParams = new TruckParams(100.0f, 100.0f);
         
-        var overlandParams = new OverlandParams<AxisVariant>(axis);
+        var overlandParams = new OverlandParams<AxisVariant, domain.core.Wagon.Models>(axis);
         
-        var mechanicalParams = new MechanicalParams<FuelType>(engine, petrol, battery);
+        var mechanicalParams = new MechanicalParams<FuelType, domain.core.Wagon.Models>(engine, petrol, battery);
         
         var controlledParams = new ControlledParams();
 
@@ -39,40 +39,40 @@ public class WagonRepository : IWagonRepository<FuelType, AxisVariant>
         var transportParams = new TransportParams(vehicle, player);
         return new Wagon<FuelType, AxisVariant>(wagonParams, truckParams, overlandParams, mechanicalParams, controlledParams, transportParams);
     }
-    public Wagon<FuelType, AxisVariant> Create(Player player, domain.core.Wagon.Models model)
-    {
-        var wagonParams = new WagonParams(null);
-        var truckParams = new TruckParams(100.0f, 100.0f);
-
-        var axisMetaData = new EntityMetaData("axis-1", "The First Axis");
-        var axisSpecification = new AxisSpecification<AxisVariant>(AxisVariant.Three);
-        var axis = new Axis<AxisVariant>(axisMetaData, axisSpecification, [100.0m,100.0m,100.0m,100.0m,100.0m,100.0m,100.0m,100.0m,100.0m,100.0m]);
-        var overlandParams = new OverlandParams<AxisVariant>(axis);
-
-        var engineMetaData = new EntityMetaData("engine-1", "The first Engine");
-        var engineSpecification = new EngineSpecification<FuelType>(100.0m, [FuelType.Diesel, FuelType.Octane92]);
-        var engine = new Engine<FuelType>(engineMetaData, engineSpecification);
-        
-
-        var petrolMetaData = new EntityMetaData("petrol-1", "The first Petrol");
-        var petrolSpecification = new PetrolSpecification(150.0m);
-        var petrol = new Petrol<FuelType>(petrolMetaData, petrolSpecification, FuelType.Diesel, 100.0f);
-        
-        var batteryMetaData = new EntityMetaData("battery-1", "The first Battery");
-        var batterySpecification = new BatterySpecification(60.0m);
-        var battery = new Battery(batteryMetaData, batterySpecification, 50.0f);
-        
-        var mechanicalParams = new MechanicalParams<FuelType>(engine, petrol, battery);
-
-
-        var controlledParams = new ControlledParams();
-
-        var vehicle = Alt.CreateVehicle((uint)model, new Position(player.Position.X, player.Position.Y, player.Position.Z), new Rotation(player.Rotation.Roll, player.Rotation.Pitch, player.Rotation.Yaw));
-        var transportParams = new TransportParams(vehicle, player);
-        return new Wagon<FuelType, AxisVariant>(wagonParams, truckParams, overlandParams, mechanicalParams, controlledParams, transportParams);
-    }
+    // public Wagon<FuelType, AxisVariant> Create(Player player, domain.core.Wagon.Models model)
+    // {
+    //     var wagonParams = new WagonParams(null);
+    //     var truckParams = new TruckParams(100.0f, 100.0f);
+    //
+    //     var axisMetaData = new EntityMetaData<domain.core.Wagon.Models>("axis-1", "The First Axis", [domain.core.Wagon.Models.Packer]);
+    //     var axisSpecification = new AxisSpecification<AxisVariant>(AxisVariant.Three);
+    //     var axis = new Axis<AxisVariant>(axisMetaData, axisSpecification, [100.0m,100.0m,100.0m,100.0m,100.0m,100.0m,100.0m,100.0m,100.0m,100.0m]);
+    //     var overlandParams = new OverlandParams<AxisVariant>(axis);
+    //
+    //     var engineMetaData = new EntityMetaData<domain.core.Wagon.Models>("engine-1", "The first Engine");
+    //     var engineSpecification = new EngineSpecification<FuelType>(100.0m, [FuelType.Diesel, FuelType.Octane92]);
+    //     var engine = new Engine<FuelType>(engineMetaData, engineSpecification);
+    //     
+    //
+    //     var petrolMetaData = new EntityMetaData<domain.core.Wagon.Models>("petrol-1", "The first Petrol");
+    //     var petrolSpecification = new PetrolSpecification(150.0m);
+    //     var petrol = new Petrol<FuelType>(petrolMetaData, petrolSpecification, FuelType.Diesel, 100.0f);
+    //     
+    //     var batteryMetaData = new EntityMetaData<domain.core.Wagon.Models>("battery-1", "The first Battery");
+    //     var batterySpecification = new BatterySpecification(60.0m);
+    //     var battery = new Battery(batteryMetaData, batterySpecification, 50.0f);
+    //     
+    //     var mechanicalParams = new MechanicalParams<FuelType>(engine, petrol, battery);
+    //
+    //
+    //     var controlledParams = new ControlledParams();
+    //
+    //     var vehicle = Alt.CreateVehicle((uint)model, new Position(player.Position.X, player.Position.Y, player.Position.Z), new Rotation(player.Rotation.Roll, player.Rotation.Pitch, player.Rotation.Yaw));
+    //     var transportParams = new TransportParams(vehicle, player);
+    //     return new Wagon<FuelType, AxisVariant>(wagonParams, truckParams, overlandParams, mechanicalParams, controlledParams, transportParams);
+    // }
     
-    public async Task<Axis<AxisVariant>?> GetAxisByModelAsync(string model)
+    public async Task<Axis<AxisVariant, domain.core.Wagon.Models>?> GetAxisByModelAsync(string model)
     {
         var result = await _dbContext.WagonAxis
             .AsNoTracking()
@@ -81,12 +81,12 @@ public class WagonRepository : IWagonRepository<FuelType, AxisVariant>
 
         if (result == null) return null;
         
-        var metaData = new EntityMetaData(result.Model, result.Name);
+        var metaData = new EntityMetaData<domain.core.Wagon.Models>(result.Model, result.Name, []);
         var specification = new AxisSpecification<AxisVariant>(result.Axis);
-        return new Axis<AxisVariant>(metaData, specification, []);
+        return new Axis<AxisVariant, domain.core.Wagon.Models>(metaData, specification, []);
     }
     
-    public async Task AddAxisAsync(EntityMetaData entityMetaData, AxisSpecification<AxisVariant> specification)
+    public async Task AddAxisAsync(EntityMetaData<domain.core.Wagon.Models> entityMetaData, AxisSpecification<AxisVariant> specification)
     {
         var z = new AxisEntity
         {
@@ -98,7 +98,7 @@ public class WagonRepository : IWagonRepository<FuelType, AxisVariant>
         await _dbContext.SaveChangesAsync();
     }
     
-    public async Task<Battery?> GetBatteryByModelAsync(string model)
+    public async Task<Battery<domain.core.Wagon.Models>?> GetBatteryByModelAsync(string model)
     {
         var result = await _dbContext.WagonBatteries
             .AsNoTracking()
@@ -107,12 +107,12 @@ public class WagonRepository : IWagonRepository<FuelType, AxisVariant>
 
         if (result == null) return null;
         
-        var engineMetaData = new EntityMetaData(result.Model, result.Name);
-        var engineSpecification = new BatterySpecification(result.MaxCharge);
-        return  new Battery(engineMetaData, engineSpecification);
+        var metaData = new EntityMetaData<domain.core.Wagon.Models>(result.Model, result.Name, []);
+        var specification = new BatterySpecification(result.MaxCharge);
+        return  new Battery<domain.core.Wagon.Models>(metaData, specification);
     }
     
-    public async Task AddBatteryAsync(EntityMetaData entityMetaData, BatterySpecification specification)
+    public async Task AddBatteryAsync(EntityMetaData<domain.core.Wagon.Models> entityMetaData, BatterySpecification specification)
     {
         var z = new BatteryEntity
         {
@@ -124,7 +124,7 @@ public class WagonRepository : IWagonRepository<FuelType, AxisVariant>
         await _dbContext.SaveChangesAsync();
     }
     
-    public async Task<Engine<FuelType>?> GetEngineByModelAsync(string model)
+    public async Task<Engine<FuelType, domain.core.Wagon.Models>?> GetEngineByModelAsync(string model)
     {
         var result = await _dbContext.WagonEngines
             .AsNoTracking()
@@ -133,12 +133,12 @@ public class WagonRepository : IWagonRepository<FuelType, AxisVariant>
 
         if (result == null) return null;
         
-        var engineMetaData = new EntityMetaData(result.Model, result.Name);
-        var engineSpecification = new EngineSpecification<FuelType>(result.Bsfc, result.AcceptedTypesFuel);
-        return  new Engine<FuelType>(engineMetaData, engineSpecification);
+        var metaData = new EntityMetaData<domain.core.Wagon.Models>(result.Model, result.Name, []);
+        var specification = new EngineSpecification<FuelType>(result.Bsfc, result.AcceptedTypesFuel);
+        return  new Engine<FuelType, domain.core.Wagon.Models>(metaData, specification);
     }
     
-    public async Task AddEngineAsync(EntityMetaData entityMetaData, EngineSpecification<FuelType> specification)
+    public async Task AddEngineAsync(EntityMetaData<domain.core.Wagon.Models> entityMetaData, EngineSpecification<FuelType> specification)
     {
         var z = new EngineEntity
         {
@@ -151,7 +151,7 @@ public class WagonRepository : IWagonRepository<FuelType, AxisVariant>
         await _dbContext.SaveChangesAsync();
     }
     
-    public async Task<Petrol<FuelType>?> GetPetrolByModelAsync(string model)
+    public async Task<Petrol<FuelType, domain.core.Wagon.Models>?> GetPetrolByModelAsync(string model)
     {
         var result = await _dbContext.WagonPetrol
             .AsNoTracking()
@@ -160,12 +160,12 @@ public class WagonRepository : IWagonRepository<FuelType, AxisVariant>
 
         if (result == null) return null;
         
-        var metaData = new EntityMetaData(result.Model, result.Name);
+        var metaData = new EntityMetaData<domain.core.Wagon.Models>(result.Model, result.Name, []);
         var specification = new PetrolSpecification(result.Capacity);
-        return new Petrol<FuelType>(metaData, specification, FuelType.Octane92);
+        return new Petrol<FuelType, domain.core.Wagon.Models>(metaData, specification, FuelType.Octane92);
     }
     
-    public async Task AddPetrolAsync(EntityMetaData entityMetaData, PetrolSpecification specification)
+    public async Task AddPetrolAsync(EntityMetaData<domain.core.Wagon.Models> entityMetaData, PetrolSpecification specification)
     {
         var z = new PetrolEntity
         {

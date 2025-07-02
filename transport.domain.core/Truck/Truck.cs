@@ -7,7 +7,7 @@ using transport.domain.core.Truck.dto;
 
 namespace transport.domain.core.Truck;
 
-public abstract class Truck<T, TA>(TruckParams truckParams, OverlandParams<TA> overlandParams, MechanicalParams<T> mechanicalParams,  ControlledParams controlledParams, TransportParams transportParams) : Overland<T, TA>(overlandParams ,mechanicalParams ,controlledParams, transportParams)
+public abstract class Truck<T, TA, TB>(TruckParams truckParams, OverlandParams<TA, TB> overlandParams, MechanicalParams<T, TB> mechanicalParams,  ControlledParams controlledParams, TransportParams transportParams) : Overland<T, TA, TB>(overlandParams ,mechanicalParams ,controlledParams, transportParams)
 {
      public readonly TruckParams TruckParams = truckParams;
 }

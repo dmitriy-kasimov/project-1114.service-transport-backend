@@ -1,12 +1,13 @@
 namespace transport.domain.core;
 
-public class EntityMetaData(string model, string name)
+public class EntityMetaData<T>(string model, string name, List<T> compatiblyTransports)
 {
     public string Model => model;
     public string Name => name;
+    public List<T> CompatiblyTransports => compatiblyTransports;
 }
 
-public interface IEntity
+public interface IEntity<T>
 {
-    public EntityMetaData MetaData { get; }
+    public EntityMetaData<T> MetaData { get; }
 }

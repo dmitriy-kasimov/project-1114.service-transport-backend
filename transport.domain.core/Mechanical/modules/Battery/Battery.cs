@@ -1,8 +1,8 @@
 ﻿namespace transport.domain.core.Mechanical.modules.Battery;
 
-public class Battery(EntityMetaData entityMetaData,  BatterySpecification batterySpecification, float currentCharge = 0.0f) : IEntity, IBattery
+public class Battery<T>(EntityMetaData<T> entityMetaData,  BatterySpecification batterySpecification, float currentCharge = 0.0f) : IEntity<T>, IBattery
 {
-    public EntityMetaData MetaData => entityMetaData;
+    public EntityMetaData<T> MetaData => entityMetaData;
     public BatterySpecification Specification => batterySpecification;
     
     // current battery charge in A*h

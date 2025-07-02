@@ -3,7 +3,7 @@ using transport.domain.core.Overland.modules.Axis;
 
 namespace transport.domain.core.Overland.dto;
 
-public class OverlandParams<TA>(Axis<TA> axis)
+public class OverlandParams<T, TA>(Axis<T, TA> axis)
 {
-    public Axis<TA> Axis => axis;
+    public Axis<T, TA> Axis => axis;
 }

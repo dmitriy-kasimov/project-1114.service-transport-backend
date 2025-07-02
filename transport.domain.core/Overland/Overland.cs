@@ -5,7 +5,7 @@ using transport.domain.core.Overland.dto;
 
 namespace transport.domain.core.Overland;
 
-public abstract class Overland<T, TA>(OverlandParams<TA> overlandParams, MechanicalParams<T> mechanicalParams,  ControlledParams controlledParams, TransportParams transportParams) : Mechanical.Mechanical<T>(mechanicalParams ,controlledParams, transportParams)
+public abstract class Overland<T, TA, TB>(OverlandParams<TA, TB> overlandParams, MechanicalParams<T, TB> mechanicalParams,  ControlledParams controlledParams, TransportParams transportParams) : Mechanical.Mechanical<T, TB>(mechanicalParams ,controlledParams, transportParams)
 {
-    public OverlandParams<TA> OverlandParams => overlandParams;
+    public OverlandParams<TA, TB> OverlandParams => overlandParams;
 }
