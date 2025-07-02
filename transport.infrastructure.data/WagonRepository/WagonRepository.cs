@@ -44,21 +44,21 @@ public class WagonRepository : IWagonRepository<FuelType, AxisVariant>
         var wagonParams = new WagonParams(null);
         var truckParams = new TruckParams(100.0f, 100.0f);
 
-        var axisMetaData = new EntityMetaData("0", "axis-1", "The First Axis");
+        var axisMetaData = new EntityMetaData("axis-1", "The First Axis");
         var axisSpecification = new AxisSpecification<AxisVariant>(AxisVariant.Three);
         var axis = new Axis<AxisVariant>(axisMetaData, axisSpecification, [100.0m,100.0m,100.0m,100.0m,100.0m,100.0m,100.0m,100.0m,100.0m,100.0m]);
         var overlandParams = new OverlandParams<AxisVariant>(axis);
 
-        var engineMetaData = new EntityMetaData("0", "engine-1", "The first Engine");
+        var engineMetaData = new EntityMetaData("engine-1", "The first Engine");
         var engineSpecification = new EngineSpecification<FuelType>(100.0m, [FuelType.Diesel, FuelType.Octane92]);
         var engine = new Engine<FuelType>(engineMetaData, engineSpecification);
         
 
-        var petrolMetaData = new EntityMetaData("0", "petrol-1", "The first Petrol");
+        var petrolMetaData = new EntityMetaData("petrol-1", "The first Petrol");
         var petrolSpecification = new PetrolSpecification(150.0m);
         var petrol = new Petrol<FuelType>(petrolMetaData, petrolSpecification, FuelType.Diesel, 100.0f);
         
-        var batteryMetaData = new EntityMetaData("0", "battery-1", "The first Battery");
+        var batteryMetaData = new EntityMetaData("battery-1", "The first Battery");
         var batterySpecification = new BatterySpecification(60.0m);
         var battery = new Battery(batteryMetaData, batterySpecification, 50.0f);
         
@@ -81,7 +81,7 @@ public class WagonRepository : IWagonRepository<FuelType, AxisVariant>
 
         if (result == null) return null;
         
-        var metaData = new EntityMetaData("SOME_GUID", result.Model, result.Name);
+        var metaData = new EntityMetaData(result.Model, result.Name);
         var specification = new AxisSpecification<AxisVariant>(result.Axis);
         return new Axis<AxisVariant>(metaData, specification, []);
     }
@@ -107,7 +107,7 @@ public class WagonRepository : IWagonRepository<FuelType, AxisVariant>
 
         if (result == null) return null;
         
-        var engineMetaData = new EntityMetaData("SOME_GUID", result.Model, result.Name);
+        var engineMetaData = new EntityMetaData(result.Model, result.Name);
         var engineSpecification = new BatterySpecification(result.MaxCharge);
         return  new Battery(engineMetaData, engineSpecification);
     }
@@ -133,7 +133,7 @@ public class WagonRepository : IWagonRepository<FuelType, AxisVariant>
 
         if (result == null) return null;
         
-        var engineMetaData = new EntityMetaData("SOME_GUID", result.Model, result.Name);
+        var engineMetaData = new EntityMetaData(result.Model, result.Name);
         var engineSpecification = new EngineSpecification<FuelType>(result.Bsfc, result.AcceptedTypesFuel);
         return  new Engine<FuelType>(engineMetaData, engineSpecification);
     }
@@ -160,7 +160,7 @@ public class WagonRepository : IWagonRepository<FuelType, AxisVariant>
 
         if (result == null) return null;
         
-        var metaData = new EntityMetaData("SOME_GUID", result.Model, result.Name);
+        var metaData = new EntityMetaData(result.Model, result.Name);
         var specification = new PetrolSpecification(result.Capacity);
         return new Petrol<FuelType>(metaData, specification, FuelType.Octane92);
     }
