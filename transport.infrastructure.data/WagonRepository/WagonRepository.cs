@@ -29,9 +29,9 @@ public class WagonRepository : IWagonRepository<FuelType, AxisVariant>
         var wagonParams = new WagonParams(null);
         var truckParams = new TruckParams(100.0f, 100.0f);
         
-        var overlandParams = new OverlandParams<AxisVariant, domain.core.Wagon.Models>(axis);
+        var overlandParams = new OverlandParams<AxisVariant, domain.core.Wagon.Models>(["axis-1"], axis);
         
-        var mechanicalParams = new MechanicalParams<FuelType, domain.core.Wagon.Models>(engine, petrol, battery);
+        var mechanicalParams = new MechanicalParams<FuelType, domain.core.Wagon.Models>(["engine-1"], engine, ["petrol-1"], petrol, ["battery-1"], battery);
         
         var controlledParams = new ControlledParams();
 
