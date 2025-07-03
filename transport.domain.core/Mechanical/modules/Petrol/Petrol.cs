@@ -1,9 +1,9 @@
 ﻿namespace transport.domain.core.Mechanical.modules.Petrol;
 
 // TODO обкашлять Nullable для fuelType параметра 
-public class Petrol<T, TA>(EntityMetaData<TA> entityMetaData,  PetrolSpecification petrolSpecification, T? fuelType, float amountFuel = 0.0f): IEntity<TA>, IPetrol
+public class Petrol<T, TA>(ModuleMetaData<TA> moduleMetaData,  PetrolSpecification petrolSpecification, T? fuelType, float amountFuel = 0.0f): IModule<TA>, IPetrol
 {
-    public EntityMetaData<TA> MetaData => entityMetaData;
+    public ModuleMetaData<TA> MetaData => moduleMetaData;
     public PetrolSpecification Specification => petrolSpecification;
     
     private T? _fuelType = fuelType;

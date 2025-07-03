@@ -89,22 +89,22 @@ public class WagonRepository : IWagonRepository<FuelType, AxisVariant>
         var axis = result.CompatibleWagonAxis[0];
         Console.WriteLine("Check the link from module to wagon");
         Console.WriteLine(axis.CompatibleWagons[0].Model);
-        var axisMetaData = new EntityMetaData<domain.core.Wagon.Models>(axis.Model, axis.Name, axis.CompatibleTransports);
+        var axisMetaData = new ModuleMetaData<domain.core.Wagon.Models>(axis.Model, axis.Name, axis.CompatibleTransports);
         var axisSpecification = new AxisSpecification<AxisVariant>(axis.Axis);
         var m2 = new Axis<AxisVariant, domain.core.Wagon.Models>(axisMetaData, axisSpecification, []);
         
         var engine = result.CompatibleWagonEngines[0];
-        var engineMetaData = new EntityMetaData<domain.core.Wagon.Models>(engine.Model, engine.Name, engine.CompatibleTransports);
+        var engineMetaData = new ModuleMetaData<domain.core.Wagon.Models>(engine.Model, engine.Name, engine.CompatibleTransports);
         var engineSpecification = new EngineSpecification<FuelType>(engine.Bsfc, engine.AcceptedTypesFuel);
         var m1 = new Engine<FuelType, domain.core.Wagon.Models>(engineMetaData, engineSpecification);
         
         var battery = result.CompatibleWagonBatteries[0];
-        var petrolMetaData = new EntityMetaData<domain.core.Wagon.Models>(battery.Model, battery.Name, battery.CompatibleTransports);
+        var petrolMetaData = new ModuleMetaData<domain.core.Wagon.Models>(battery.Model, battery.Name, battery.CompatibleTransports);
         var petrolSpecification = new BatterySpecification(battery.MaxCharge);
         var m3 = new Battery<domain.core.Wagon.Models>(petrolMetaData, petrolSpecification);
         
         var petrol = result.CompatibleWagonPetrol[0];
-        var metaData = new EntityMetaData<domain.core.Wagon.Models>(petrol.Model, petrol.Name, petrol.CompatibleTransports);
+        var metaData = new ModuleMetaData<domain.core.Wagon.Models>(petrol.Model, petrol.Name, petrol.CompatibleTransports);
         var specification = new PetrolSpecification(petrol.Capacity);
         var m4 = new Petrol<FuelType, domain.core.Wagon.Models>(metaData, specification, FuelType.Octane92);
         
@@ -133,17 +133,17 @@ public class WagonRepository : IWagonRepository<FuelType, AxisVariant>
 
         if (result == null) return null;
         
-        var metaData = new EntityMetaData<domain.core.Wagon.Models>(result.Model, result.Name, result.CompatibleTransports);
+        var metaData = new ModuleMetaData<domain.core.Wagon.Models>(result.Model, result.Name, result.CompatibleTransports);
         var specification = new AxisSpecification<AxisVariant>(result.Axis);
         return new Axis<AxisVariant, domain.core.Wagon.Models>(metaData, specification, []);
     }
     
-    public async Task AddAxisAsync(EntityMetaData<domain.core.Wagon.Models> entityMetaData, AxisSpecification<AxisVariant> specification)
+    public async Task AddAxisAsync(ModuleMetaData<domain.core.Wagon.Models> metaData, AxisSpecification<AxisVariant> specification)
     {
         var z = new AxisEntity
         {
-            Model = entityMetaData.Model,
-            Name = entityMetaData.Name,
+            Model = metaData.Model,
+            Name = metaData.Name,
             Axis = specification.Axis,
         };
         await _dbContext.AddAsync(z);
@@ -158,17 +158,17 @@ public class WagonRepository : IWagonRepository<FuelType, AxisVariant>
 
         if (result == null) return null;
         
-        var metaData = new EntityMetaData<domain.core.Wagon.Models>(result.Model, result.Name, result.CompatibleTransports);
+        var metaData = new ModuleMetaData<domain.core.Wagon.Models>(result.Model, result.Name, result.CompatibleTransports);
         var specification = new BatterySpecification(result.MaxCharge);
         return  new Battery<domain.core.Wagon.Models>(metaData, specification);
     }
     
-    public async Task AddBatteryAsync(EntityMetaData<domain.core.Wagon.Models> entityMetaData, BatterySpecification specification)
+    public async Task AddBatteryAsync(ModuleMetaData<domain.core.Wagon.Models> metaData, BatterySpecification specification)
     {
         var z = new BatteryEntity
         {
-            Model = entityMetaData.Model,
-            Name = entityMetaData.Name,
+            Model = metaData.Model,
+            Name = metaData.Name,
             MaxCharge = specification.MaxCharge,
         };
         await _dbContext.AddAsync(z);
@@ -183,17 +183,17 @@ public class WagonRepository : IWagonRepository<FuelType, AxisVariant>
         
         if (result == null) return null;
         
-        var metaData = new EntityMetaData<domain.core.Wagon.Models>(result.Model, result.Name, result.CompatibleTransports);
+        var metaData = new ModuleMetaData<domain.core.Wagon.Models>(result.Model, result.Name, result.CompatibleTransports);
         var specification = new EngineSpecification<FuelType>(result.Bsfc, result.AcceptedTypesFuel);
         return  new Engine<FuelType, domain.core.Wagon.Models>(metaData, specification);
     }
     
-    public async Task AddEngineAsync(EntityMetaData<domain.core.Wagon.Models> entityMetaData, EngineSpecification<FuelType> specification)
+    public async Task AddEngineAsync(ModuleMetaData<domain.core.Wagon.Models> metaData, EngineSpecification<FuelType> specification)
     {
         var z = new EngineEntity
         {
-            Model = entityMetaData.Model,
-            Name = entityMetaData.Name,
+            Model = metaData.Model,
+            Name = metaData.Name,
             Bsfc = specification.Bsfc,
             AcceptedTypesFuel = specification.AcceptedTypesFuel,
         };
@@ -209,17 +209,17 @@ public class WagonRepository : IWagonRepository<FuelType, AxisVariant>
         
         if (result == null) return null;
         
-        var metaData = new EntityMetaData<domain.core.Wagon.Models>(result.Model, result.Name, result.CompatibleTransports);
+        var metaData = new ModuleMetaData<domain.core.Wagon.Models>(result.Model, result.Name, result.CompatibleTransports);
         var specification = new PetrolSpecification(result.Capacity);
         return new Petrol<FuelType, domain.core.Wagon.Models>(metaData, specification, FuelType.Octane92);
     }
     
-    public async Task AddPetrolAsync(EntityMetaData<domain.core.Wagon.Models> entityMetaData, PetrolSpecification specification)
+    public async Task AddPetrolAsync(ModuleMetaData<domain.core.Wagon.Models> metaData, PetrolSpecification specification)
     {
         var z = new PetrolEntity
         {
-            Model = entityMetaData.Model,
-            Name = entityMetaData.Name,
+            Model = metaData.Model,
+            Name = metaData.Name,
             Capacity = specification.Capacity
         };
         await _dbContext.AddAsync(z);

@@ -1,8 +1,8 @@
 ﻿namespace transport.domain.core.Mechanical.modules.Engine;
 
-public class Engine<T, TA>(EntityMetaData<TA> entityMetaData, EngineSpecification<T> engineSpecification): IEntity<TA>, IEngine<T>
+public class Engine<T, TA>(ModuleMetaData<TA> moduleMetaData, EngineSpecification<T> engineSpecification): IModule<TA>, IEngine<T>
 {
-    public EntityMetaData<TA> MetaData => entityMetaData;
+    public ModuleMetaData<TA> MetaData => moduleMetaData;
     
     public EngineSpecification<T> Specification => engineSpecification;
 }
