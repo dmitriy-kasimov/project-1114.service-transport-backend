@@ -94,7 +94,7 @@ public class WagonRepository : IWagonRepository<FuelType, AxisVariant>
         var wagonParams = new WagonParams(null);
         var truckParams = new TruckParams(100.0f, 100.0f);
         
-        var overlandParams = new OverlandParams<AxisVariant, domain.core.Wagon.Models>([], defaultAxis.Model, AxisMapper.ToModel(defaultAxis));
+        var overlandParams = new OverlandParams<AxisVariant, domain.core.Wagon.Models>([], defaultAxis.Model, AxisMapper.ToDomain(defaultAxis));
         
         var mechanicalParams = new MechanicalParams<FuelType, domain.core.Wagon.Models>(
             [], defaultEngine.Model, EngineMapper.ToDomain(defaultEngine), 
@@ -114,22 +114,12 @@ public class WagonRepository : IWagonRepository<FuelType, AxisVariant>
             .AsNoTracking()
             .FirstOrDefaultAsync(c => c.Model == model);
 
-        if (result == null) return null;
-        
-        var metaData = new ModuleMetaData<domain.core.Wagon.Models>(result.Model, result.Name, result.CompatibleTransports);
-        var specification = new AxisSpecification<AxisVariant>(result.Axis);
-        return new Axis<AxisVariant, domain.core.Wagon.Models>(metaData, specification, []);
+        return result == null ? null : AxisMapper.ToDomain(result);
     }
     
-    public async Task AddAxisAsync(ModuleMetaData<domain.core.Wagon.Models> metaData, AxisSpecification<AxisVariant> specification)
+    public async Task AddAxisAsync(Axis<AxisVariant, domain.core.Wagon.Models> axis)
     {
-        var z = new AxisEntity
-        {
-            Model = metaData.Model,
-            Name = metaData.Name,
-            Axis = specification.Axis,
-        };
-        await _dbContext.AddAsync(z);
+        await _dbContext.AddAsync(AxisMapper.ToModel(axis));
         await _dbContext.SaveChangesAsync();
     }
     
@@ -139,22 +129,12 @@ public class WagonRepository : IWagonRepository<FuelType, AxisVariant>
             .AsNoTracking()
             .FirstOrDefaultAsync(c => c.Model == model);
 
-        if (result == null) return null;
-        
-        var metaData = new ModuleMetaData<domain.core.Wagon.Models>(result.Model, result.Name, result.CompatibleTransports);
-        var specification = new BatterySpecification(result.MaxCharge);
-        return  new Battery<domain.core.Wagon.Models>(metaData, specification);
+        return result == null ? null : BatteryMapper.ToDomain(result);
     }
     
-    public async Task AddBatteryAsync(ModuleMetaData<domain.core.Wagon.Models> metaData, BatterySpecification specification)
+    public async Task AddBatteryAsync(Battery<domain.core.Wagon.Models> battery)
     {
-        var z = new BatteryEntity
-        {
-            Model = metaData.Model,
-            Name = metaData.Name,
-            MaxCharge = specification.MaxCharge,
-        };
-        await _dbContext.AddAsync(z);
+        await _dbContext.AddAsync(BatteryMapper.ToModel(battery));
         await _dbContext.SaveChangesAsync();
     }
     
@@ -164,23 +144,12 @@ public class WagonRepository : IWagonRepository<FuelType, AxisVariant>
             .AsNoTracking()
             .FirstOrDefaultAsync(c => c.Model == model);
         
-        if (result == null) return null;
-        
-        var metaData = new ModuleMetaData<domain.core.Wagon.Models>(result.Model, result.Name, result.CompatibleTransports);
-        var specification = new EngineSpecification<FuelType>(result.Bsfc, result.AcceptedTypesFuel);
-        return  new Engine<FuelType, domain.core.Wagon.Models>(metaData, specification);
+        return result == null ? null : EngineMapper.ToDomain(result);
     }
     
-    public async Task AddEngineAsync(ModuleMetaData<domain.core.Wagon.Models> metaData, EngineSpecification<FuelType> specification)
+    public async Task AddEngineAsync(Engine<FuelType, domain.core.Wagon.Models> engine)
     {
-        var z = new EngineEntity
-        {
-            Model = metaData.Model,
-            Name = metaData.Name,
-            Bsfc = specification.Bsfc,
-            AcceptedTypesFuel = specification.AcceptedTypesFuel,
-        };
-        await _dbContext.AddAsync(z);
+        await _dbContext.AddAsync(EngineMapper.ToModel(engine));
         await _dbContext.SaveChangesAsync();
     }
     
@@ -190,22 +159,12 @@ public class WagonRepository : IWagonRepository<FuelType, AxisVariant>
             .AsNoTracking()
             .FirstOrDefaultAsync(c => c.Model == model);
         
-        if (result == null) return null;
-        
-        var metaData = new ModuleMetaData<domain.core.Wagon.Models>(result.Model, result.Name, result.CompatibleTransports);
-        var specification = new PetrolSpecification(result.Capacity);
-        return new Petrol<FuelType, domain.core.Wagon.Models>(metaData, specification, FuelType.Octane92);
+        return result == null ? null : PetrolMapper.ToDomain(result);
     }
     
-    public async Task AddPetrolAsync(ModuleMetaData<domain.core.Wagon.Models> metaData, PetrolSpecification specification)
+    public async Task AddPetrolAsync(Petrol<FuelType, domain.core.Wagon.Models> petrol)
     {
-        var z = new PetrolEntity
-        {
-            Model = metaData.Model,
-            Name = metaData.Name,
-            Capacity = specification.Capacity
-        };
-        await _dbContext.AddAsync(z);
+        await _dbContext.AddAsync(PetrolMapper.ToModel(petrol));
         await _dbContext.SaveChangesAsync();
     }
 }

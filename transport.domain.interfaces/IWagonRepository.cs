@@ -13,16 +13,16 @@ public interface IWagonRepository<T, TA>
     public Task<Wagon<T,TA>?> Create(Player player,  Models model);
     
     public Task<Battery<Models>?> GetBatteryByModelAsync(string model);
-    public Task AddBatteryAsync(ModuleMetaData<Models> metaData, BatterySpecification specification);
+    public Task AddBatteryAsync(Battery<Models> battery);
     
     public Task<Engine<T, Models>?> GetEngineByModelAsync(string model);
-    public Task AddEngineAsync(ModuleMetaData<Models> metaData, EngineSpecification<T> specification);
+    public Task AddEngineAsync(Engine<T, Models> engine);
     
     public Task<Petrol<T, Models>?> GetPetrolByModelAsync(string model);
 
-    public Task AddPetrolAsync(ModuleMetaData<Models> metaData, PetrolSpecification specification);
+    public Task AddPetrolAsync(Petrol<T, Models> petrol);
     
     public Task<Axis<TA, Models>?> GetAxisByModelAsync(string model);
-    public Task AddAxisAsync(ModuleMetaData<Models> metaData, AxisSpecification<TA> specification);
+    public Task AddAxisAsync(Axis<TA, domain.core.Wagon.Models> axis);
     
 }

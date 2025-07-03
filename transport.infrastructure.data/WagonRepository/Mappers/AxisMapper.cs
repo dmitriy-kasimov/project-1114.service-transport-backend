@@ -7,14 +7,14 @@ namespace transport.infrastructure.data.WagonRepository.Mappers;
 
 public static class AxisMapper
 {
-    public static Axis<AxisVariant, domain.core.Wagon.Models> ToModel(AxisEntity axisEntity)
+    public static Axis<AxisVariant, domain.core.Wagon.Models> ToDomain(AxisEntity axisEntity)
     {
         var axisMetaData = new ModuleMetaData<domain.core.Wagon.Models>(axisEntity.Model, axisEntity.Name, axisEntity.CompatibleTransports);
         var axisSpecification = new AxisSpecification<AxisVariant>(axisEntity.Axis);
         return new Axis<AxisVariant, domain.core.Wagon.Models>(axisMetaData, axisSpecification, []);
     }
 
-    public static AxisEntity ToEntity(Axis<AxisVariant, domain.core.Wagon.Models> axis)
+    public static AxisEntity ToModel(Axis<AxisVariant, domain.core.Wagon.Models> axis)
     {
         return new AxisEntity()
         {
