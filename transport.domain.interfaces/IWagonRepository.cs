@@ -10,8 +10,7 @@ namespace transport.domain.interfaces;
 
 public interface IWagonRepository<T, TA>
 {
-    // public Wagon<T,TA> Create(Player player,  Models model);
-    public Wagon<T,TA> Create(Player player,  Models model, Engine<T, Models> engine, Petrol<T, Models> petrol, Battery<Models> battery, Axis<TA, Models> axis);
+    public Task<Wagon<T,TA>?> Create(Player player,  Models model);
     
     public Task<Battery<Models>?> GetBatteryByModelAsync(string model);
     public Task AddBatteryAsync(EntityMetaData<Models> entityMetaData, BatterySpecification batterySpecification);

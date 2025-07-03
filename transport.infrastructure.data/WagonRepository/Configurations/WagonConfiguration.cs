@@ -16,12 +16,21 @@ public class WagonConfiguration : IEntityTypeConfiguration<WagonEntity>
         builder.Property(entity => entity.CompatibleBatteries);
         builder.Property(entity => entity.CompatiblePetrol);
         
-        // builder
-        //     .HasMany(c => c.CompatibleEngines)
-        //     .WithMany(c => c.CompatibleModels);
-        //
-        // builder
-        //     .HasMany(c => c.CompatibleAxis)
-        //     .WithMany(c => c.CompatibleModels);
+        // many 2 many for each module
+        builder
+            .HasMany(c => c.CompatibleWagonAxis)
+            .WithMany(c => c.CompatibleWagons);
+        
+        builder
+            .HasMany(c => c.CompatibleWagonEngines)
+            .WithMany(c => c.CompatibleWagons);
+        
+        builder
+            .HasMany(c => c.CompatibleWagonPetrol)
+            .WithMany(c => c.CompatibleWagons);
+        
+        builder
+            .HasMany(c => c.CompatibleWagonBatteries)
+            .WithMany(c => c.CompatibleWagons);
     }
 }

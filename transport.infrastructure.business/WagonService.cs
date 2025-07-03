@@ -18,21 +18,15 @@ public class WagonService : IWagonService
     {
         try
         {
-            Console.WriteLine("Trying to read modules...");
-            var engine = await _wagonRepository.GetEngineByModelAsync("engine-1");
-            var petrol = await _wagonRepository.GetPetrolByModelAsync("petrol-1");
-            var battery = await _wagonRepository.GetBatteryByModelAsync("battery-1");
-            var axis = await _wagonRepository.GetAxisByModelAsync("axis-1");
-            Console.WriteLine("Modules successfully has been read from DB!");
-
-            var newWagon = _wagonRepository.Create(player, Models.Packer, engine!, petrol!, battery!, axis!);
+            var newWagon = await _wagonRepository.Create(player, Models.Packer);
+            if (newWagon == null) throw new Exception();
+            
             _wagons[newWagon.TransportParams.Vehicle] = newWagon;
-        
             PrintWagons();
         }
         catch (Exception e)
         {
-            Console.WriteLine("Failed try to read engine from DB:");
+            Console.WriteLine("Failed try spawn a truck");
             Console.WriteLine(e);
         }
     }

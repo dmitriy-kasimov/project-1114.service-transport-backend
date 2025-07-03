@@ -15,8 +15,9 @@ public class AxisConfiguration : IEntityTypeConfiguration<AxisEntity>
         
         builder.Property(entity => entity.CompatibleTransports);
         
-        // builder
-        //     .HasMany(c => c.CompatibleModels)
-        //     .WithMany(c => c.CompatibleAxis);
+        // many 2 many for each wagon
+        builder
+            .HasMany(c => c.CompatibleWagons)
+            .WithMany(c => c.CompatibleWagonAxis);
     }
 }

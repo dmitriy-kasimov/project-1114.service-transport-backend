@@ -11,5 +11,5 @@ public class EngineEntity
     public List<FuelType> AcceptedTypesFuel { get; set; } = [];
     
     public List<domain.core.Wagon.Models> CompatibleTransports { get; set; } = [];
-    // хранить список совместимых тс
+    public List<WagonEntity> CompatibleWagons { get; set; } = [];
 }

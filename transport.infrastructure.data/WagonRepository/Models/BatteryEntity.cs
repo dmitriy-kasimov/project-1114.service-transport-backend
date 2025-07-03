@@ -8,5 +8,5 @@ public class BatteryEntity
     public decimal MaxCharge { get; set; } = decimal.Zero;
     
     public List<domain.core.Wagon.Models> CompatibleTransports { get; set; } = [];
-    // хранить список совместимых тс
+    public List<WagonEntity> CompatibleWagons { get; set; } = [];
 }

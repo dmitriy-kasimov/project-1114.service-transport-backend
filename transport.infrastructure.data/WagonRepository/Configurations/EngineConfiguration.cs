@@ -16,8 +16,9 @@ public class EngineConfiguration : IEntityTypeConfiguration<EngineEntity>
 
         builder.Property(entity => entity.CompatibleTransports);
         
-        // builder
-        //     .HasMany(c => c.CompatibleModels)
-        //     .WithMany(c => c.CompatibleEngines);
+        // many 2 many for each wagon
+        builder
+            .HasMany(c => c.CompatibleWagons)
+            .WithMany(c => c.CompatibleWagonEngines);
     }
 }

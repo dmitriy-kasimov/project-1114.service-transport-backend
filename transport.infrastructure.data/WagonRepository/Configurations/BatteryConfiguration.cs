@@ -15,8 +15,9 @@ public class BatteryConfiguration : IEntityTypeConfiguration<BatteryEntity>
         
         builder.Property(entity => entity.CompatibleTransports);
         
-        // builder
-        //     .HasMany(c => c.CompatibleModels)
-        //     .WithMany(c => c.CompatibleBatteries);
+        // many 2 many for each wagon
+        builder
+            .HasMany(c => c.CompatibleWagons)
+            .WithMany(c => c.CompatibleWagonBatteries);
     }
 }
