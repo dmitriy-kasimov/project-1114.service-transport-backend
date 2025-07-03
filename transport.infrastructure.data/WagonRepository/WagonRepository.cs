@@ -30,39 +30,42 @@ public class WagonRepository : IWagonRepository<FuelType, AxisVariant>
         var z = new WagonEntity
         {
             Model = domain.core.Wagon.Models.Packer,
-            DefaultWagonBattery = new BatteryEntity()
-            {
-                Model = "battery-1",
-                Name = "The First Battery",
-                MaxCharge = 60.0m,
-                CompatibleTransports = [domain.core.Wagon.Models.Packer, domain.core.Wagon.Models.Hauler],
-            },
-            DefaultWagonAxis = new AxisEntity()
-            {
-                Model = "axis-1",
-                Name = "The First Axis",
-                Axis = AxisVariant.Three,
-                CompatibleTransports = [domain.core.Wagon.Models.Packer, domain.core.Wagon.Models.Hauler],
-            },
-            DefaultWagonEngine = new EngineEntity()
-            {
-                Model = "engine-1",
-                Name = "The First Engine",
-                CompatibleTransports = [domain.core.Wagon.Models.Packer, domain.core.Wagon.Models.Hauler],
-                AcceptedTypesFuel = [FuelType.Diesel],
-                Bsfc = 90.0m
-            },
-            DefaultWagonPetrol = new PetrolEntity()
-            {
-                Model = "engine-1",
-                Name = "The First Engine",
-                CompatibleTransports = [domain.core.Wagon.Models.Packer, domain.core.Wagon.Models.Hauler],
-                Capacity = 90.0m,
-            },
-            // CompatibleBatteries = ["battery-1"],
-            // CompatibleAxis = ["axis-1"],
-            // CompatibleEngines = ["engine-1"],
-            // CompatiblePetrol = ["petrol-1"],
+            CompatibleWagonAxis = [
+                new AxisEntity()
+                {
+                    Model = "axis-1",
+                    Name = "The First Axis",
+                    Axis = AxisVariant.Three,
+                    CompatibleTransports = [domain.core.Wagon.Models.Packer, domain.core.Wagon.Models.Hauler],
+                }],
+            CompatibleWagonBatteries = [
+                new BatteryEntity()
+                {
+                    Model = "battery-1",
+                    Name = "The First Battery",
+                    MaxCharge = 60.0m,
+                    CompatibleTransports = [domain.core.Wagon.Models.Packer, domain.core.Wagon.Models.Hauler],
+                }
+            ],
+            CompatibleWagonEngines = [
+                new EngineEntity()
+                {
+                    Model = "engine-1",
+                    Name = "The First Engine",
+                    CompatibleTransports = [domain.core.Wagon.Models.Packer, domain.core.Wagon.Models.Hauler],
+                    AcceptedTypesFuel = [FuelType.Diesel],
+                    Bsfc = 90.0m
+                }
+            ],
+            CompatibleWagonPetrol = [
+                new PetrolEntity()
+                {
+                    Model = "petrol-1",
+                    Name = "The First Petrol",
+                    CompatibleTransports = [domain.core.Wagon.Models.Packer, domain.core.Wagon.Models.Hauler],
+                    Capacity = 90.0m,
+                }
+            ]
         };
         await _dbContext.AddAsync(z);
         await _dbContext.SaveChangesAsync();
@@ -72,32 +75,35 @@ public class WagonRepository : IWagonRepository<FuelType, AxisVariant>
 
     public async Task<Wagon<FuelType, AxisVariant>?>  Create(Player player, domain.core.Wagon.Models model)
     {
+        // TODO .AsNoTracking() - без него работает кольцевая ссылка wagon -> module -> wagon ...
         var result = await _dbContext.Wagons
-            .AsNoTracking()
-            .Include(wagonEntity => wagonEntity.DefaultWagonEngine)
-            .Include(wagonEntity => wagonEntity.DefaultWagonAxis)
-            .Include(wagonEntity => wagonEntity.DefaultWagonBattery)
-            .Include(wagonEntity => wagonEntity.DefaultWagonPetrol)
+            .Include(wagonEntity => wagonEntity.CompatibleWagonAxis)
+            .ThenInclude(axisEntity => axisEntity.CompatibleWagons)
+            .Include(wagonEntity => wagonEntity.CompatibleWagonEngines)
+            .Include(wagonEntity => wagonEntity.CompatibleWagonBatteries)
+            .Include(wagonEntity => wagonEntity.CompatibleWagonPetrol)
             .FirstOrDefaultAsync(c => c.Model == model);
 
         if (result == null) return null;
 
-        var axis = result.DefaultWagonAxis;
+        var axis = result.CompatibleWagonAxis[0];
+        Console.WriteLine("Check the link from module to wagon");
+        Console.WriteLine(axis.CompatibleWagons[0].Model);
         var axisMetaData = new EntityMetaData<domain.core.Wagon.Models>(axis.Model, axis.Name, axis.CompatibleTransports);
         var axisSpecification = new AxisSpecification<AxisVariant>(axis.Axis);
         var m2 = new Axis<AxisVariant, domain.core.Wagon.Models>(axisMetaData, axisSpecification, []);
         
-        var engine = result.DefaultWagonEngine;
+        var engine = result.CompatibleWagonEngines[0];
         var engineMetaData = new EntityMetaData<domain.core.Wagon.Models>(engine.Model, engine.Name, engine.CompatibleTransports);
         var engineSpecification = new EngineSpecification<FuelType>(engine.Bsfc, engine.AcceptedTypesFuel);
         var m1 = new Engine<FuelType, domain.core.Wagon.Models>(engineMetaData, engineSpecification);
         
-        var battery = result.DefaultWagonBattery;
+        var battery = result.CompatibleWagonBatteries[0];
         var petrolMetaData = new EntityMetaData<domain.core.Wagon.Models>(battery.Model, battery.Name, battery.CompatibleTransports);
         var petrolSpecification = new BatterySpecification(battery.MaxCharge);
         var m3 = new Battery<domain.core.Wagon.Models>(petrolMetaData, petrolSpecification);
         
-        var petrol = result.DefaultWagonPetrol;
+        var petrol = result.CompatibleWagonPetrol[0];
         var metaData = new EntityMetaData<domain.core.Wagon.Models>(petrol.Model, petrol.Name, petrol.CompatibleTransports);
         var specification = new PetrolSpecification(petrol.Capacity);
         var m4 = new Petrol<FuelType, domain.core.Wagon.Models>(metaData, specification, FuelType.Octane92);
@@ -105,12 +111,12 @@ public class WagonRepository : IWagonRepository<FuelType, AxisVariant>
         var wagonParams = new WagonParams(null);
         var truckParams = new TruckParams(100.0f, 100.0f);
         
-        var overlandParams = new OverlandParams<AxisVariant, domain.core.Wagon.Models>(result.CompatibleAxis, axis.Model, m2);
+        var overlandParams = new OverlandParams<AxisVariant, domain.core.Wagon.Models>([], axis.Model, m2);
         
         var mechanicalParams = new MechanicalParams<FuelType, domain.core.Wagon.Models>(
-            result.CompatibleEngines, engine.Model, m1, 
-            result.CompatiblePetrol,  petrol.Model, m4, 
-            result.CompatibleBatteries,  battery.Model, m3);
+            [], engine.Model, m1, 
+            [],  petrol.Model, m4, 
+            [],  battery.Model, m3);
         
         var controlledParams = new ControlledParams();
 

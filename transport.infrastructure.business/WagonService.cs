@@ -16,6 +16,17 @@ public class WagonService : IWagonService
 
     public async void Create(Player player, Models model)
     {
+        // try
+        // {
+        //     Console.WriteLine($"Creating wagon: {model} ...");
+        //     await _wagonRepository.AddWagonAsync(model);
+        //     Console.WriteLine("done");
+        // }
+        // catch (Exception e)
+        // {
+        //     Console.WriteLine("gandone");
+        //     Console.WriteLine(e);
+        // }
         try
         {
             var newWagon = await _wagonRepository.Create(player, Models.Packer);
