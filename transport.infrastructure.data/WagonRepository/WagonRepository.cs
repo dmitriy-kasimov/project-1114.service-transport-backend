@@ -17,6 +17,7 @@ using transport.domain.core.Truck.dto;
 using transport.domain.core.Wagon;
 using transport.domain.core.Wagon.dto;
 using transport.domain.interfaces;
+using transport.infrastructure.data.WagonRepository.Mappers;
 using transport.infrastructure.data.WagonRepository.Models;
 
 namespace transport.infrastructure.data.WagonRepository;
@@ -75,48 +76,30 @@ public class WagonRepository : IWagonRepository<FuelType, AxisVariant>
 
     public async Task<Wagon<FuelType, AxisVariant>?>  Create(Player player, domain.core.Wagon.Models model)
     {
-        // TODO .AsNoTracking() - без него работает кольцевая ссылка wagon -> module -> wagon ...
-        var result = await _dbContext.Wagons
+        var wagon = await _dbContext.Wagons
+            .AsNoTracking()
             .Include(wagonEntity => wagonEntity.CompatibleWagonAxis)
-            .ThenInclude(axisEntity => axisEntity.CompatibleWagons)
             .Include(wagonEntity => wagonEntity.CompatibleWagonEngines)
             .Include(wagonEntity => wagonEntity.CompatibleWagonBatteries)
             .Include(wagonEntity => wagonEntity.CompatibleWagonPetrol)
             .FirstOrDefaultAsync(c => c.Model == model);
 
-        if (result == null) return null;
+        if (wagon == null) return null;
 
-        var axis = result.CompatibleWagonAxis[0];
-        Console.WriteLine("Check the link from module to wagon");
-        Console.WriteLine(axis.CompatibleWagons[0].Model);
-        var axisMetaData = new ModuleMetaData<domain.core.Wagon.Models>(axis.Model, axis.Name, axis.CompatibleTransports);
-        var axisSpecification = new AxisSpecification<AxisVariant>(axis.Axis);
-        var m2 = new Axis<AxisVariant, domain.core.Wagon.Models>(axisMetaData, axisSpecification, []);
-        
-        var engine = result.CompatibleWagonEngines[0];
-        var engineMetaData = new ModuleMetaData<domain.core.Wagon.Models>(engine.Model, engine.Name, engine.CompatibleTransports);
-        var engineSpecification = new EngineSpecification<FuelType>(engine.Bsfc, engine.AcceptedTypesFuel);
-        var m1 = new Engine<FuelType, domain.core.Wagon.Models>(engineMetaData, engineSpecification);
-        
-        var battery = result.CompatibleWagonBatteries[0];
-        var petrolMetaData = new ModuleMetaData<domain.core.Wagon.Models>(battery.Model, battery.Name, battery.CompatibleTransports);
-        var petrolSpecification = new BatterySpecification(battery.MaxCharge);
-        var m3 = new Battery<domain.core.Wagon.Models>(petrolMetaData, petrolSpecification);
-        
-        var petrol = result.CompatibleWagonPetrol[0];
-        var metaData = new ModuleMetaData<domain.core.Wagon.Models>(petrol.Model, petrol.Name, petrol.CompatibleTransports);
-        var specification = new PetrolSpecification(petrol.Capacity);
-        var m4 = new Petrol<FuelType, domain.core.Wagon.Models>(metaData, specification, FuelType.Octane92);
+        var defaultAxis = wagon.CompatibleWagonAxis[0];
+        var defaultEngine = wagon.CompatibleWagonEngines[0];
+        var defaultBattery = wagon.CompatibleWagonBatteries[0];
+        var defaultPetrol = wagon.CompatibleWagonPetrol[0];
         
         var wagonParams = new WagonParams(null);
         var truckParams = new TruckParams(100.0f, 100.0f);
         
-        var overlandParams = new OverlandParams<AxisVariant, domain.core.Wagon.Models>([], axis.Model, m2);
+        var overlandParams = new OverlandParams<AxisVariant, domain.core.Wagon.Models>([], defaultAxis.Model, AxisMapper.ToModel(defaultAxis));
         
         var mechanicalParams = new MechanicalParams<FuelType, domain.core.Wagon.Models>(
-            [], engine.Model, m1, 
-            [],  petrol.Model, m4, 
-            [],  battery.Model, m3);
+            [], defaultEngine.Model, EngineMapper.ToDomain(defaultEngine), 
+            [],  defaultPetrol.Model, PetrolMapper.ToDomain(defaultPetrol), 
+            [],  defaultBattery.Model, BatteryMapper.ToDomain(defaultBattery));
         
         var controlledParams = new ControlledParams();
 
