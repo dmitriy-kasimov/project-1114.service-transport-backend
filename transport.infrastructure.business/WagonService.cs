@@ -18,8 +18,8 @@ public class WagonService : IWagonService
     {
         // try
         // {
-        //     Console.WriteLine($"Creating wagon: {model} ...");
-        //     await _wagonRepository.AddWagonAsync(model);
+        //     Console.WriteLine($"Creating wagon: {Models.Hauler} ...");
+        //     await _wagonRepository.AddWagonAsync(Models.Hauler);
         //     Console.WriteLine("done");
         // }
         // catch (Exception e)
@@ -29,7 +29,7 @@ public class WagonService : IWagonService
         // }
         try
         {
-            var newWagon = await _wagonRepository.Create(player, Models.Packer);
+            var newWagon = await _wagonRepository.Create(player, Models.Hauler);
             if (newWagon == null) throw new Exception();
             
             _wagons[newWagon.TransportParams.Vehicle] = newWagon;

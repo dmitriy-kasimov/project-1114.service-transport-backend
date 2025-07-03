@@ -29,41 +29,41 @@ public class WagonRepository : IWagonRepository<FuelType, AxisVariant>
     {
         var z = new WagonEntity
         {
-            Model = domain.core.Wagon.Models.Packer,
+            Model = domain.core.Wagon.Models.Hauler,
             CompatibleWagonAxis = [
                 new AxisEntity()
                 {
-                    Model = "axis-1",
-                    Name = "The First Axis",
+                    Model = "axis-2",
+                    Name = "The Second Axis",
                     Axis = AxisVariant.Three,
                     CompatibleTransports = [domain.core.Wagon.Models.Packer, domain.core.Wagon.Models.Hauler],
                 }],
             CompatibleWagonBatteries = [
                 new BatteryEntity()
                 {
-                    Model = "battery-1",
-                    Name = "The First Battery",
-                    MaxCharge = 60.0m,
+                    Model = "battery-2",
+                    Name = "The Second Battery",
+                    MaxCharge = 120.0m,
                     CompatibleTransports = [domain.core.Wagon.Models.Packer, domain.core.Wagon.Models.Hauler],
                 }
             ],
             CompatibleWagonEngines = [
                 new EngineEntity()
                 {
-                    Model = "engine-1",
-                    Name = "The First Engine",
-                    CompatibleTransports = [domain.core.Wagon.Models.Packer, domain.core.Wagon.Models.Hauler],
+                    Model = "engine-2",
+                    Name = "The Second Engine",
+                    CompatibleTransports = [domain.core.Wagon.Models.Hauler],
                     AcceptedTypesFuel = [FuelType.Diesel],
-                    Bsfc = 90.0m
+                    Bsfc = 180.0m
                 }
             ],
             CompatibleWagonPetrol = [
                 new PetrolEntity()
                 {
-                    Model = "petrol-1",
-                    Name = "The First Petrol",
-                    CompatibleTransports = [domain.core.Wagon.Models.Packer, domain.core.Wagon.Models.Hauler],
-                    Capacity = 90.0m,
+                    Model = "petrol-2",
+                    Name = "The Second Petrol",
+                    CompatibleTransports = [domain.core.Wagon.Models.Hauler],
+                    Capacity = 180.0m,
                 }
             ]
         };
