@@ -9,15 +9,12 @@ public class BatteryConfiguration : IEntityTypeConfiguration<BatteryEntity>
     public void Configure(EntityTypeBuilder<BatteryEntity> builder)
     {
         builder.HasKey(entity => entity.Id);
-        builder.Property(entity => entity.Model);
         builder.Property(entity => entity.Name);
         builder.Property(entity => entity.MaxCharge);
         
-        builder.Property(entity => entity.CompatibleTransports);
-        
         // many 2 many for each wagon
         builder
-            .HasMany(c => c.CompatibleWagons)
-            .WithMany(c => c.CompatibleWagonBatteries);
+            .HasMany(c => c.CompatibleTransports)
+            .WithMany(c => c.CompatibleBatteries);
     }
 }

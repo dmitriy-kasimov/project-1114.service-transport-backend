@@ -5,19 +5,16 @@ using transport.domain.core.Mechanical.modules.Petrol;
 namespace transport.domain.core.Mechanical.dto;
 
 public class MechanicalParams<T, TA>(
-    List<string> compatiblyEngines, string defaultEngineModel, Engine<T, TA> engine, 
-    List<string> compatiblyPetrol, string defaultPetrolModel, Petrol<T, TA> petrol, 
-    List<string> compatiblyBatteries, string defaultBatteryModel, Battery<TA> battery)
+    List<Guid> compatiblyEngines, Engine<T, TA> engine, 
+    List<Guid> compatiblyPetrol, Petrol<T, TA> petrol, 
+    List<Guid> compatiblyBatteries, Battery<TA> battery)
 {
-    public List<string> CompatiblyEngines => compatiblyEngines;
-    public string DefaultEngineModel => defaultEngineModel;
+    public List<Guid> CompatiblyEngines => compatiblyEngines;
     public Engine<T, TA> Engine => engine;
     
-    public List<string> CompatiblyPetrol => compatiblyPetrol;
-    public string DefaultPetrolModel => defaultPetrolModel;
+    public List<Guid> CompatiblyPetrol => compatiblyPetrol;
     public Petrol<T, TA> Petrol => petrol;
     
-    public List<string> CompatiblyBatteries => compatiblyBatteries;
-    public string DefaultBatteryModel => defaultBatteryModel;
+    public List<Guid> CompatiblyBatteries => compatiblyBatteries;
     public Battery<TA> Battery => battery;
 }

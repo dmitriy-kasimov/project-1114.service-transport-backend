@@ -9,16 +9,13 @@ public class PetrolConfiguration: IEntityTypeConfiguration<PetrolEntity>
     public void Configure(EntityTypeBuilder<PetrolEntity> builder)
     {
         builder.HasKey(entity => entity.Id);
-        builder.Property(entity => entity.Model);
         builder.Property(entity => entity.Name);
         
         builder.Property(entity => entity.Capacity);
         
-        builder.Property(entity => entity.CompatibleTransports);
-        
         // many 2 many for each wagon
         builder
-            .HasMany(c => c.CompatibleWagons)
-            .WithMany(c => c.CompatibleWagonPetrol);
+            .HasMany(c => c.CompatibleTransports)
+            .WithMany(c => c.CompatiblePetrol);
     }
 }

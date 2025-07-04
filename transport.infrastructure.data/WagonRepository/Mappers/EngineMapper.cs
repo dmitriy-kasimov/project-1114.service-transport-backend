@@ -7,19 +7,18 @@ namespace transport.infrastructure.data.WagonRepository.Mappers;
 
 public static class EngineMapper
 {
-    public static Engine<FuelType, domain.core.Wagon.Models> ToDomain(EngineEntity engineEntity)
+    public static Engine<FuelType, WagonEntity> ToDomain(EngineEntity engineEntity)
     {
-        var engineMetaData = new ModuleMetaData<domain.core.Wagon.Models>(engineEntity.Model, engineEntity.Name,
+        var engineMetaData = new ModuleMetaData<WagonEntity>(engineEntity.Id, engineEntity.Name,
             engineEntity.CompatibleTransports);
         var engineSpecification = new EngineSpecification<FuelType>(engineEntity.Bsfc, engineEntity.AcceptedTypesFuel);
-        return new Engine<FuelType, domain.core.Wagon.Models>(engineMetaData, engineSpecification);
+        return new Engine<FuelType, WagonEntity>(engineMetaData, engineSpecification);
     }
 
-    public static EngineEntity ToModel(Engine<FuelType, domain.core.Wagon.Models> engine)
+    public static EngineEntity ToModel(Engine<FuelType, WagonEntity> engine)
     {
         return new EngineEntity()
         {
-            Model = engine.MetaData.Model,
             Name = engine.MetaData.Name,
             CompatibleTransports = engine.MetaData.CompatiblyTransports,
             AcceptedTypesFuel = engine.Specification.AcceptedTypesFuel,

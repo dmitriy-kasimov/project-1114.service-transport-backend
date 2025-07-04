@@ -3,6 +3,7 @@ using transport.domain.core.Mechanical;
 using transport.domain.core.Overland;
 using transport.domain.core.Wagon;
 using transport.infrastructure.data.WagonRepository;
+using transport.infrastructure.data.WagonRepository.Models;
 using transport.services.interfaces;
 
 namespace transport.infrastructure.business;
@@ -11,7 +12,7 @@ public class WagonService : IWagonService
 {
     private readonly WagonRepository _wagonRepository = new WagonRepository();
     
-    private readonly Dictionary<IVehicle, Wagon<FuelType, AxisVariant>> _wagons = [];
+    private readonly Dictionary<IVehicle, Wagon<FuelType, AxisVariant, WagonEntity>> _wagons = [];
     
 
     public async void Create(Player player, Models model)

@@ -9,15 +9,12 @@ public class AxisConfiguration : IEntityTypeConfiguration<AxisEntity>
     public void Configure(EntityTypeBuilder<AxisEntity> builder)
     {
         builder.HasKey(entity => entity.Id);
-        builder.Property(entity => entity.Model);
         builder.Property(entity => entity.Name);
         builder.Property(entity => entity.Axis);
         
-        builder.Property(entity => entity.CompatibleTransports);
-        
         // many 2 many for each wagon
         builder
-            .HasMany(c => c.CompatibleWagons)
-            .WithMany(c => c.CompatibleWagonAxis);
+            .HasMany(c => c.CompatibleTransports)
+            .WithMany(c => c.CompatibleAxis);
     }
 }

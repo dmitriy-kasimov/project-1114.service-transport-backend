@@ -8,7 +8,7 @@ using transport.domain.core.Wagon.dto;
 
 namespace transport.domain.core.Wagon;
 
-public class Wagon<T, TA>(WagonParams wagonParams, TruckParams truckParams, OverlandParams<TA, Models> overlandParams, MechanicalParams<T, Models> mechanicalParams,  ControlledParams controlledParams, TransportParams transportParams) : Truck<T, TA, Models>(truckParams, overlandParams, mechanicalParams ,controlledParams, transportParams)
+public class Wagon<T, TA, TE>(WagonParams wagonParams, TruckParams truckParams, OverlandParams<TA, TE> overlandParams, MechanicalParams<T, TE> mechanicalParams,  ControlledParams controlledParams, TransportParams transportParams) : Truck<T, TA, TE>(truckParams, overlandParams, mechanicalParams ,controlledParams, transportParams)
 {
      public WagonParams Params = wagonParams;
 }

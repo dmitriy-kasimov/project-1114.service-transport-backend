@@ -1,8 +1,8 @@
 namespace transport.domain.core;
 
-public class ModuleMetaData<T>(string model, string name, List<T> compatiblyTransports)
+public class ModuleMetaData<T>(Guid id, string name, List<T> compatiblyTransports)
 {
-    public string Model => model;
+    public Guid Id => id;
     public string Name => name;
     public List<T> CompatiblyTransports => compatiblyTransports;
 }
