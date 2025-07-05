@@ -10,19 +10,21 @@ namespace transport.domain.interfaces;
 
 public interface IWagonRepository<T, TA, TE>
 {
-    public Task<Wagon<T, TA>?> Create(Player player,  Models model);
+    public Task AddWagonAsync(Models model);
+    public Task<TE?> GetWagonByModel(Models model);
+    public Task<Wagon<T, TA>?> Spawn(Models model, Player? player = null);
     
     public Task<Battery<Models>?> GetBatteryByNameAsync(string name);
-    public Task AddBatteryAsync(Battery<Models> battery, List<TE> compatibleWagons);
+    public Task AddBatteryAsync(Battery<Models> battery, List<TE>? compatibleWagons = null);
     
     public Task<Engine<T, Models>?> GetEngineByNameAsync(string name);
-    public Task AddEngineAsync(Engine<T, Models> engine, List<TE> compatibleWagons);
+    public Task AddEngineAsync(Engine<T, Models> engine, List<TE>? compatibleWagons = null);
     
     public Task<Petrol<T, Models>?> GetPetrolByNameAsync(string name);
 
-    public Task AddPetrolAsync(Petrol<T, Models> petrol, List<TE> compatibleWagons);
+    public Task AddPetrolAsync(Petrol<T, Models> petrol, List<TE>? compatibleWagons = null);
     
     public Task<Axis<TA, Models>?> GetAxisByNameAsync(string name);
-    public Task AddAxisAsync(Axis<TA, Models> axis, List<TE> compatibleWagons);
+    public Task AddAxisAsync(Axis<TA, Models> axis, List<TE>? compatibleWagons = null);
     
 }

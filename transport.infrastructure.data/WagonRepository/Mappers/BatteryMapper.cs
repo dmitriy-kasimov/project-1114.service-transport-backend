@@ -16,12 +16,12 @@ public static class BatteryMapper
         return  new Battery<domain.core.Wagon.Models>(petrolMetaData, petrolSpecification);
     }
 
-    public static BatteryEntity ToModel(Battery<domain.core.Wagon.Models> battery, List<WagonEntity> wagonEntities)
+    public static BatteryEntity ToModel(Battery<domain.core.Wagon.Models> battery, List<WagonEntity>? wagonEntities = null)
     {
         return new BatteryEntity
         {
             Name = battery.MetaData.Name,
-            CompatibleTransports = wagonEntities,
+            CompatibleTransports = wagonEntities ?? [],
             MaxCharge = battery.Specification.MaxCharge
         };
     }

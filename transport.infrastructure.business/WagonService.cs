@@ -1,8 +1,11 @@
 using AltV.Net.Elements.Entities;
+using transport.domain.core;
 using transport.domain.core.Mechanical;
 using transport.domain.core.Overland;
+using transport.domain.core.Overland.modules.Axis;
 using transport.domain.core.Wagon;
 using transport.infrastructure.data.WagonRepository;
+using transport.infrastructure.data.WagonRepository.Mappers;
 using transport.infrastructure.data.WagonRepository.Models;
 using transport.services.interfaces;
 
@@ -30,7 +33,18 @@ public class WagonService : IWagonService
         // }
         try
         {
-            var newWagon = await _wagonRepository.Create(player, Models.Hauler);
+            // await _wagonRepository.AddWagonAsync(Models.Hauler);
+            //
+            // var axisMetaData = new ModuleMetaData<Models>("Axis-1", []);
+            // var axisSpecification = new AxisSpecification<AxisVariant>(AxisVariant.Three);
+            // var m2 = new Axis<AxisVariant, Models>(axisMetaData, axisSpecification, []);
+            // await _wagonRepository.AddAxisAsync(m2);
+            //
+            // var truck = await _wagonRepository.GetWagonByModel(Models.Hauler);
+            // var ax = await _wagonRepository.GetAxisByNameAsync("Axis-1");
+            // truck!.CompatibleAxis.Add(AxisMapper.ToModel(ax!));
+
+            var newWagon = await _wagonRepository.Spawn(Models.Hauler, player);
             if (newWagon == null) throw new Exception();
             
             _wagons[newWagon.TransportParams.Vehicle] = newWagon;

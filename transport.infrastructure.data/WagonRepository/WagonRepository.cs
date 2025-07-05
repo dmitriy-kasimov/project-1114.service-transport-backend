@@ -26,7 +26,22 @@ public class WagonRepository : IWagonRepository<FuelType, AxisVariant, WagonEnti
 {
     private readonly WagonDbContext _dbContext = new();
 
-    public async Task<Wagon<FuelType, AxisVariant>?> Create(Player player, domain.core.Wagon.Models model)
+    public async Task AddWagonAsync(domain.core.Wagon.Models model)
+    {
+        await _dbContext.AddAsync(WagonMapper.ToModel(model));
+        await _dbContext.SaveChangesAsync();
+    }
+
+    public async Task<WagonEntity?> GetWagonByModel(domain.core.Wagon.Models model)
+    {
+        var result = await _dbContext.Wagons
+            .AsNoTracking()
+            .FirstOrDefaultAsync(c => c.Model == model);
+
+        return result;
+    }
+
+    public async Task<Wagon<FuelType, AxisVariant>?> Spawn(domain.core.Wagon.Models model, Player? player = null)
     {
         var wagon = await _dbContext.Wagons
             .AsNoTracking()
@@ -38,7 +53,7 @@ public class WagonRepository : IWagonRepository<FuelType, AxisVariant, WagonEnti
 
         if (wagon == null) return null;
         
-        var wagonParams = new WagonParams(null);
+        var wagonParams = new WagonParams(model, null);
         var truckParams = new TruckParams(100.0f, 100.0f);
         var overlandParams = new OverlandParams<AxisVariant, domain.core.Wagon.Models>([], AxisMapper.ToDomain(wagon.CompatibleAxis[0]));
         var mechanicalParams = new MechanicalParams<FuelType, domain.core.Wagon.Models>(
@@ -63,7 +78,7 @@ public class WagonRepository : IWagonRepository<FuelType, AxisVariant, WagonEnti
         return result == null ? null : AxisMapper.ToDomain(result);
     }
     
-    public async Task AddAxisAsync(Axis<AxisVariant, domain.core.Wagon.Models> axis, List<WagonEntity> compatibleWagons)
+    public async Task AddAxisAsync(Axis<AxisVariant, domain.core.Wagon.Models> axis, List<WagonEntity>? compatibleWagons = null)
     {
         await _dbContext.AddAsync(AxisMapper.ToModel(axis, compatibleWagons));
         await _dbContext.SaveChangesAsync();
@@ -78,7 +93,7 @@ public class WagonRepository : IWagonRepository<FuelType, AxisVariant, WagonEnti
         return result == null ? null : BatteryMapper.ToDomain(result);
     }
     
-    public async Task AddBatteryAsync(Battery<domain.core.Wagon.Models> battery, List<WagonEntity> compatibleWagons)
+    public async Task AddBatteryAsync(Battery<domain.core.Wagon.Models> battery, List<WagonEntity>? compatibleWagons = null)
     {
         await _dbContext.AddAsync(BatteryMapper.ToModel(battery, compatibleWagons));
         await _dbContext.SaveChangesAsync();
@@ -93,7 +108,7 @@ public class WagonRepository : IWagonRepository<FuelType, AxisVariant, WagonEnti
         return result == null ? null : EngineMapper.ToDomain(result);
     }
     
-    public async Task AddEngineAsync(Engine<FuelType, domain.core.Wagon.Models> engine, List<WagonEntity> compatibleWagons)
+    public async Task AddEngineAsync(Engine<FuelType, domain.core.Wagon.Models> engine, List<WagonEntity>? compatibleWagons = null)
     {
         await _dbContext.AddAsync(EngineMapper.ToModel(engine, compatibleWagons));
         await _dbContext.SaveChangesAsync();
@@ -108,7 +123,7 @@ public class WagonRepository : IWagonRepository<FuelType, AxisVariant, WagonEnti
         return result == null ? null : PetrolMapper.ToDomain(result);
     }
     
-    public async Task AddPetrolAsync(Petrol<FuelType, domain.core.Wagon.Models> petrol, List<WagonEntity> compatibleWagons)
+    public async Task AddPetrolAsync(Petrol<FuelType, domain.core.Wagon.Models> petrol, List<WagonEntity>? compatibleWagons = null)
     {
         await _dbContext.AddAsync(PetrolMapper.ToModel(petrol, compatibleWagons));
         await _dbContext.SaveChangesAsync();

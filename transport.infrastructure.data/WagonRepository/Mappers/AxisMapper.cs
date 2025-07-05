@@ -17,12 +17,12 @@ public static class AxisMapper
         return new Axis<AxisVariant, domain.core.Wagon.Models>(metaData, specification, []);
     }
 
-    public static AxisEntity ToModel(Axis<AxisVariant, domain.core.Wagon.Models> axis, List<WagonEntity> wagonEntities)
+    public static AxisEntity ToModel(Axis<AxisVariant, domain.core.Wagon.Models> axis, List<WagonEntity>? wagonEntities = null)
     {
         return new AxisEntity
         {
             Name = axis.MetaData.Name,
-            CompatibleTransports = wagonEntities,
+            CompatibleTransports = wagonEntities ?? [],
             Axis = axis.Specification.Axis
         };
     }
