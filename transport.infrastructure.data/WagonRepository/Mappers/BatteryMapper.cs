@@ -6,19 +6,22 @@ namespace transport.infrastructure.data.WagonRepository.Mappers;
 
 public static class BatteryMapper
 {
-    public static Battery<WagonEntity> ToDomain(BatteryEntity battery)
+    public static Battery<domain.core.Wagon.Models> ToDomain(BatteryEntity batteryEntity)
     {
-        var petrolMetaData = new ModuleMetaData<WagonEntity>(battery.Id, battery.Name, battery.CompatibleTransports);
-        var petrolSpecification = new BatterySpecification(battery.MaxCharge);
-        return  new Battery<WagonEntity>(petrolMetaData, petrolSpecification);
+        var compatibleWagonModels = batteryEntity.CompatibleTransports.ConvertAll(wagon => wagon.Model);
+        var petrolMetaData = new ModuleMetaData<domain.core.Wagon.Models>(batteryEntity.Name, compatibleWagonModels);
+        
+        var petrolSpecification = new BatterySpecification(batteryEntity.MaxCharge);
+        
+        return  new Battery<domain.core.Wagon.Models>(petrolMetaData, petrolSpecification);
     }
 
-    public static BatteryEntity ToModel(Battery<WagonEntity> battery)
+    public static BatteryEntity ToModel(Battery<domain.core.Wagon.Models> battery, List<WagonEntity> wagonEntities)
     {
-        return new BatteryEntity()
+        return new BatteryEntity
         {
             Name = battery.MetaData.Name,
-            CompatibleTransports = battery.MetaData.CompatiblyTransports,
+            CompatibleTransports = wagonEntities,
             MaxCharge = battery.Specification.MaxCharge
         };
     }

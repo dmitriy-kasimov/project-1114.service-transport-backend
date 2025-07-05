@@ -8,8 +8,7 @@ public class EngineConfiguration : IEntityTypeConfiguration<EngineEntity>
 {
     public void Configure(EntityTypeBuilder<EngineEntity> builder)
     {
-        builder.HasKey(entity => entity.Id);
-        builder.Property(entity => entity.Name);
+        builder.HasKey(entity => entity.Name);
         builder.Property(entity => entity.Bsfc);
         builder.Property(entity => entity.AcceptedTypesFuel);
         

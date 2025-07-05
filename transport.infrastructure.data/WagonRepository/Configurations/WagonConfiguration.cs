@@ -8,8 +8,7 @@ public class WagonConfiguration : IEntityTypeConfiguration<WagonEntity>
 {
     public void Configure(EntityTypeBuilder<WagonEntity> builder)
     {
-        builder.HasKey(entity => entity.Id);
-        builder.Property(entity => entity.Model);
+        builder.HasKey(entity => entity.Model);
         
         // many 2 many for each module
         builder

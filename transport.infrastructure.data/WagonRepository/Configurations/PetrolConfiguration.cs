@@ -8,8 +8,7 @@ public class PetrolConfiguration: IEntityTypeConfiguration<PetrolEntity>
 {
     public void Configure(EntityTypeBuilder<PetrolEntity> builder)
     {
-        builder.HasKey(entity => entity.Id);
-        builder.Property(entity => entity.Name);
+        builder.HasKey(entity => entity.Name);
         
         builder.Property(entity => entity.Capacity);
         

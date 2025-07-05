@@ -12,7 +12,7 @@ public class WagonService : IWagonService
 {
     private readonly WagonRepository _wagonRepository = new WagonRepository();
     
-    private readonly Dictionary<IVehicle, Wagon<FuelType, AxisVariant, WagonEntity>> _wagons = [];
+    private readonly Dictionary<IVehicle, Wagon<FuelType, AxisVariant>> _wagons = [];
     
 
     public async void Create(Player player, Models model)

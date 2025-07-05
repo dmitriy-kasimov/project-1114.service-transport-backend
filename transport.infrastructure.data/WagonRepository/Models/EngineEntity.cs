@@ -4,7 +4,6 @@ namespace transport.infrastructure.data.WagonRepository.Models;
 
 public class EngineEntity
 {
-    public Guid Id { get; set; }
     public string Name { get; set;} = string.Empty;
     public decimal Bsfc { get; set;} = decimal.Zero;
     public List<FuelType> AcceptedTypesFuel { get; set; } = [];

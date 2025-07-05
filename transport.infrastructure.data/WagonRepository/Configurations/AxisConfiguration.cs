@@ -8,8 +8,7 @@ public class AxisConfiguration : IEntityTypeConfiguration<AxisEntity>
 {
     public void Configure(EntityTypeBuilder<AxisEntity> builder)
     {
-        builder.HasKey(entity => entity.Id);
-        builder.Property(entity => entity.Name);
+        builder.HasKey(entity => entity.Name);
         builder.Property(entity => entity.Axis);
         
         // many 2 many for each wagon
