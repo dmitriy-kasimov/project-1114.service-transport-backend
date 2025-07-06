@@ -20,38 +20,13 @@ public class WagonService : IWagonService
 
     public async void Create(Player player, Models model)
     {
-        // try
-        // {
-        //     Console.WriteLine($"Creating wagon: {Models.Hauler} ...");
-        //     await _wagonRepository.AddWagonAsync(Models.Hauler);
-        //     Console.WriteLine("done");
-        // }
-        // catch (Exception e)
-        // {
-        //     Console.WriteLine("gandone");
-        //     Console.WriteLine(e);
-        // }
         try
         {
-            // await _wagonRepository.AddWagonAsync(Models.Hauler);
-            //
-            // var axisMetaData = new ModuleMetaData<Models>("Axis-1", []);
-            // var axisSpecification = new AxisSpecification<AxisVariant>(AxisVariant.Three);
-            // var m2 = new Axis<AxisVariant, Models>(axisMetaData, axisSpecification, []);
-            // await _wagonRepository.AddAxisAsync(m2);
-            //
-            // var truck = await _wagonRepository.GetWagonByModel(Models.Hauler);
-            // var ax = await _wagonRepository.GetAxisByNameAsync("Axis-1");
-            // truck!.CompatibleAxis.Add(AxisMapper.ToModel(ax!));
-
-            await _wagonRepository.LinkWagonToAxis(Models.Hauler, "Axis-1");
-            
-            //
             // var newWagon = await _wagonRepository.Spawn(Models.Hauler, player);
             // if (newWagon == null) throw new Exception();
             //
             // _wagons[newWagon.TransportParams.Vehicle] = newWagon;
-            // PrintWagons();
+            PrintWagons();
         }
         catch (Exception e)
         {
