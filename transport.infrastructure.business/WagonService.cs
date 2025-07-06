@@ -44,11 +44,14 @@ public class WagonService : IWagonService
             // var ax = await _wagonRepository.GetAxisByNameAsync("Axis-1");
             // truck!.CompatibleAxis.Add(AxisMapper.ToModel(ax!));
 
-            var newWagon = await _wagonRepository.Spawn(Models.Hauler, player);
-            if (newWagon == null) throw new Exception();
+            await _wagonRepository.LinkWagonToAxis(Models.Hauler, "Axis-1");
             
-            _wagons[newWagon.TransportParams.Vehicle] = newWagon;
-            PrintWagons();
+            //
+            // var newWagon = await _wagonRepository.Spawn(Models.Hauler, player);
+            // if (newWagon == null) throw new Exception();
+            //
+            // _wagons[newWagon.TransportParams.Vehicle] = newWagon;
+            // PrintWagons();
         }
         catch (Exception e)
         {

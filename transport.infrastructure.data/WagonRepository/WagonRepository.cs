@@ -35,10 +35,21 @@ public class WagonRepository : IWagonRepository<FuelType, AxisVariant, WagonEnti
     public async Task<WagonEntity?> GetWagonByModel(domain.core.Wagon.Models model)
     {
         var result = await _dbContext.Wagons
-            .AsNoTracking()
             .FirstOrDefaultAsync(c => c.Model == model);
 
         return result;
+    }
+
+    public async Task LinkWagonToAxis(domain.core.Wagon.Models model, string axisName)
+    {
+        var wagonEntity = await GetWagonByModel(model);
+        
+        var result = await _dbContext.WagonAxis
+            .FirstOrDefaultAsync(c => c.Name == axisName);
+        
+        wagonEntity!.CompatibleAxis.Add(result!);
+        //result!.CompatibleTransports.Add(wagonEntity);
+        await _dbContext.SaveChangesAsync();
     }
 
     public async Task<Wagon<FuelType, AxisVariant>?> Spawn(domain.core.Wagon.Models model, Player? player = null)
