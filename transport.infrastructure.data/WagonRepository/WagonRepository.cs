@@ -22,33 +22,13 @@ using transport.infrastructure.data.WagonRepository.Models;
 
 namespace transport.infrastructure.data.WagonRepository;
 
-public class WagonRepository : IWagonRepository<FuelType, AxisVariant, WagonEntity>
+public class WagonRepository : IWagonRepository<FuelType, AxisVariant>
 {
     private readonly WagonDbContext _dbContext = new();
 
     public async Task AddWagonAsync(domain.core.Wagon.Models model)
     {
         await _dbContext.AddAsync(WagonMapper.ToModel(model));
-        await _dbContext.SaveChangesAsync();
-    }
-
-    public async Task<WagonEntity?> GetWagonByModel(domain.core.Wagon.Models model)
-    {
-        var result = await _dbContext.Wagons
-            .FirstOrDefaultAsync(c => c.Model == model);
-
-        return result;
-    }
-
-    public async Task LinkWagonToAxis(domain.core.Wagon.Models model, string axisName)
-    {
-        var wagonEntity = await GetWagonByModel(model);
-        
-        var result = await _dbContext.WagonAxis
-            .FirstOrDefaultAsync(c => c.Name == axisName);
-        
-        wagonEntity!.CompatibleAxis.Add(result!);
-        //result!.CompatibleTransports.Add(wagonEntity);
         await _dbContext.SaveChangesAsync();
     }
 
@@ -89,9 +69,9 @@ public class WagonRepository : IWagonRepository<FuelType, AxisVariant, WagonEnti
         return result == null ? null : AxisMapper.ToDomain(result);
     }
     
-    public async Task AddAxisAsync(Axis<AxisVariant, domain.core.Wagon.Models> axis, List<WagonEntity>? compatibleWagons = null)
+    public async Task AddAxisAsync(Axis<AxisVariant, domain.core.Wagon.Models> axis)
     {
-        await _dbContext.AddAsync(AxisMapper.ToModel(axis, compatibleWagons));
+        await _dbContext.AddAsync(AxisMapper.ToModel(axis));
         await _dbContext.SaveChangesAsync();
     }
     
@@ -104,9 +84,9 @@ public class WagonRepository : IWagonRepository<FuelType, AxisVariant, WagonEnti
         return result == null ? null : BatteryMapper.ToDomain(result);
     }
     
-    public async Task AddBatteryAsync(Battery<domain.core.Wagon.Models> battery, List<WagonEntity>? compatibleWagons = null)
+    public async Task AddBatteryAsync(Battery<domain.core.Wagon.Models> battery)
     {
-        await _dbContext.AddAsync(BatteryMapper.ToModel(battery, compatibleWagons));
+        await _dbContext.AddAsync(BatteryMapper.ToModel(battery));
         await _dbContext.SaveChangesAsync();
     }
     
@@ -119,9 +99,9 @@ public class WagonRepository : IWagonRepository<FuelType, AxisVariant, WagonEnti
         return result == null ? null : EngineMapper.ToDomain(result);
     }
     
-    public async Task AddEngineAsync(Engine<FuelType, domain.core.Wagon.Models> engine, List<WagonEntity>? compatibleWagons = null)
+    public async Task AddEngineAsync(Engine<FuelType, domain.core.Wagon.Models> engine)
     {
-        await _dbContext.AddAsync(EngineMapper.ToModel(engine, compatibleWagons));
+        await _dbContext.AddAsync(EngineMapper.ToModel(engine));
         await _dbContext.SaveChangesAsync();
     }
     
@@ -134,9 +114,47 @@ public class WagonRepository : IWagonRepository<FuelType, AxisVariant, WagonEnti
         return result == null ? null : PetrolMapper.ToDomain(result);
     }
     
-    public async Task AddPetrolAsync(Petrol<FuelType, domain.core.Wagon.Models> petrol, List<WagonEntity>? compatibleWagons = null)
+    public async Task AddPetrolAsync(Petrol<FuelType, domain.core.Wagon.Models> petrol)
     {
-        await _dbContext.AddAsync(PetrolMapper.ToModel(petrol, compatibleWagons));
+        await _dbContext.AddAsync(PetrolMapper.ToModel(petrol));
+        await _dbContext.SaveChangesAsync();
+    }
+
+    public async Task LinkWagonToAxis(domain.core.Wagon.Models model, string moduleName)
+    {
+        var wagonEntity = await _dbContext.Wagons.FirstOrDefaultAsync(c => c.Model == model);
+        
+        var result = await _dbContext.WagonAxis.FirstOrDefaultAsync(c => c.Name == moduleName);
+        
+        wagonEntity!.CompatibleAxis.Add(result!);
+        await _dbContext.SaveChangesAsync();
+    }
+
+    public async Task LinkWagonToBattery(domain.core.Wagon.Models model, string moduleName)
+    {
+        var wagonEntity = await _dbContext.Wagons.FirstOrDefaultAsync(c => c.Model == model);
+        
+        var result = await _dbContext.WagonBatteries.FirstOrDefaultAsync(c => c.Name == moduleName);
+        
+        wagonEntity!.CompatibleBatteries.Add(result!);
+        await _dbContext.SaveChangesAsync();
+    }
+    public async Task LinkWagonToEngine(domain.core.Wagon.Models model, string moduleName)
+    {
+        var wagonEntity = await _dbContext.Wagons.FirstOrDefaultAsync(c => c.Model == model);
+        
+        var result = await _dbContext.WagonEngines.FirstOrDefaultAsync(c => c.Name == moduleName);
+        
+        wagonEntity!.CompatibleEngines.Add(result!);
+        await _dbContext.SaveChangesAsync();
+    }
+    public async Task LinkWagonToPetrol(domain.core.Wagon.Models model, string moduleName)
+    {
+        var wagonEntity = await _dbContext.Wagons.FirstOrDefaultAsync(c => c.Model == model);
+        
+        var result = await _dbContext.WagonPetrol.FirstOrDefaultAsync(c => c.Name == moduleName);
+        
+        wagonEntity!.CompatiblePetrol.Add(result!);
         await _dbContext.SaveChangesAsync();
     }
 }

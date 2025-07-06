@@ -17,12 +17,12 @@ public static class EngineMapper
         return new Engine<FuelType, domain.core.Wagon.Models>(engineMetaData, engineSpecification);
     }
 
-    public static EngineEntity ToModel(Engine<FuelType, domain.core.Wagon.Models> engine, List<WagonEntity>? wagonEntities = null)
+    public static EngineEntity ToModel(Engine<FuelType, domain.core.Wagon.Models> engine)
     {
         return new EngineEntity
         {
             Name = engine.MetaData.Name,
-            CompatibleTransports = wagonEntities ?? [],
+            CompatibleTransports = [],
             AcceptedTypesFuel = engine.Specification.AcceptedTypesFuel,
             Bsfc = engine.Specification.Bsfc,
         };
